@@ -1,0 +1,101 @@
+<!-- 在web页面模拟客户端通过jsBridge使用白板 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>白板WebView</title>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <iframe width="800" height="450" src="./webview/webview.log.html"></iframe>
+    </div>
+    <script src='./config.js'></script>
+
+    <script type="text/javascript">
+        const STUDENT_DEFAULT_COLORS = [
+            'rgb(224,32,32)',
+            'rgb(250,100,0)',
+            'rgb(247,181,0)',
+            'rgb(109,212,0)',
+            'rgb(68,215,182)',
+            'rgb(50,197,255)',
+            'rgb(0,145,255)',
+            'rgb(98,54,255)',
+            'rgb(182,32,224)',
+            'rgb(109,114,120)'
+        ]
+
+      // webview --> 客户端
+      window.frames[0].window.NativeFunction = function (msgStr) {
+            var msg = JSON.parse(msgStr);
+            console.log('native function', msg)
+
+            const params = window.whiteboardParams
+            // 模拟原生的收到，webWBWorkerInited 事件后
+            switch(msg.action) {
+                case 'webPageLoaded':
+                    login(params)
+                    enableDraw(true)
+                    setDefaultColor(params)
+                    break
+                case "webJoinWBFailed":
+                case "webCreateWBFailed":
+                case "webLoginIMFailed":
+                case "webError":
+                case "webLeaveWB":
+                    logout(msg.action)
+                    break
+          }
+      }
+
+      //客户端 --> webview
+      //登录NIM以及白板信令
+      function login(param) {
+            window.frames[0].window.WebJSBridge(JSON.stringify({
+                action: 'jsLoginIMAndJoinWB',
+                param: param
+            }))
+      }
+
+      //客户端应该销毁webview
+      function logout(action) {
+            console.error(`${action}, 客户端此时应该销毁webview`)
+      }
+
+      //客户端 --> webview
+      //设置是否可以编辑
+      function enableDraw(enable) {
+            window.frames[0].window.WebJSBridge(JSON.stringify({
+                action: 'jsEnableDraw',
+                param: {
+                    enable: enable
+                }
+            }))
+      }
+
+      //客户端 --> webview
+      //非主播端设置一个初始颜色
+      function setDefaultColor(params) {
+            if (params.account !== params.ownerAccount) {
+                const index = Math.floor(Math.random() * STUDENT_DEFAULT_COLORS.length)
+                window.frames[0].window.WebJSBridge(JSON.stringify({
+                    action: 'jsSetColor',
+                    param: {
+                        color: STUDENT_DEFAULT_COLORS[index]
+                    }
+                }))
+            }
+      }
+  </script>
+
+</body>
+
+</html>
