@@ -18,18 +18,18 @@ function getParams() {
      * record:            是否开启录制
      * debug:             开发模式下开启
      */
-    const account = 'zhongkai02'
-    const ownerAccount = 'zhongkai01'
+    const account = ''
+    const ownerAccount = ''
     const nickname = ''
     const token = ''
-    const channelName = 'sf2342'
-    const appKey = 'caee83f25bef456b13b4e9f54c8da4c8'
-    const platform = 'android'
+    const channelName = ''
+    const appKey = ''
+    const platform = ''
     const record = true
     const debug = true
 
     return {
-        account, ownerAccount, token, channelName, appKey, platform, record, debug
+        account, ownerAccount, nickname, token, channelName, appKey, platform, record, debug
     }
 }
 
