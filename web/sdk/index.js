@@ -188,6 +188,7 @@ function initWhiteBoardEvents() {
 
 function initNimWBEvents() {
     nimWB.on('connected', () => {
+        drawPlugin.enableDraw(true)
         if (isReconnecting) {
           isReconnecting = false
           /**
@@ -200,13 +201,14 @@ function initNimWBEvents() {
   
     nimWB.on('willReconnect', () => {
         isReconnecting = true
+        drawPlugin.enableDraw(false)
     })
 
     nimWB.on('error', function (r) { // 非正常情况处理
         leaveWhiteboardAndDestroy()
-      })
+    })
     
-      nimWB.on('signalClosed', function () {
+    nimWB.on('disconnected', function () {
         leaveWhiteboardAndDestroy()
     })
 }
