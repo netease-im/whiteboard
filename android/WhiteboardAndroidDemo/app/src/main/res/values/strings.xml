@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">WhiteboardAndroidDemo</string>
+    <string name="input_room_id">请输入房间ID号码</string>
+    <string name="join_room">加入房间</string>
+    <string name="main_join_room_hint">注：房间ID为创建房间后左上角的数字</string>
+    <string name="have_copied">已复制</string>
+    <string name="room_id_is_has_s">房间号：%s</string>
+    <string name="room_id_is">房间号：</string>
+    <string name="exit_room">退出房间</string>
+    <string name="ok_with_blank">确 定</string>
+    <string name="hint_room_invalid">房间已结束教学，请确认退出！</string>
+    <string name="hint_multi_login">不允许同一个账号同时登录同一个房间，请确认退出！</string>
+</resources>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".whiteboard.WhiteboardActivity">
+
+    <View
+        android:id="@+id/v_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/base_blue"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_room_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/room_id_is"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_toolbar"
+        app:layout_constraintStart_toStartOf="@id/v_toolbar"
+        app:layout_constraintTop_toTopOf="@id/v_toolbar" />
+
+    <ImageButton
+        android:id="@+id/ib_copy_room_id"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@mipmap/ic_copy"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@id/v_toolbar"
+        app:layout_constraintStart_toEndOf="@id/tv_room_id"
+        app:layout_constraintTop_toTopOf="@id/v_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_exit_room"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="@string/exit_room"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_toolbar"
+        app:layout_constraintEnd_toEndOf="@id/v_toolbar"
+        app:layout_constraintTop_toTopOf="@id/v_toolbar" />
+
+    <View
+        android:id="@+id/v_separator"
+        android:layout_width="1dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="24dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/v_toolbar"
+        app:layout_constraintEnd_toStartOf="@id/tv_exit_room"
+        app:layout_constraintTop_toTopOf="@id/v_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_toolbar"
+        app:layout_constraintEnd_toStartOf="@id/v_separator"
+        app:layout_constraintTop_toTopOf="@id/v_toolbar" />
+
+    <WebView
+        android:id="@+id/wv_whiteboard"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_copied_toast"
+        android:layout_width="69dp"
+        android:layout_height="32dp"
+        android:text="@string/have_copied"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:background="@color/base_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        android:layout_marginBottom="40dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

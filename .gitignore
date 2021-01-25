@@ -1,2 +1,12 @@
 *.zip
 .DS_Store
+/android/WhiteboardAndroidDemo/*.iml
+/android/WhiteboardAndroidDemo/.gradle
+/android/WhiteboardAndroidDemo/local.properties
+/android/WhiteboardAndroidDemo/.idea
+/android/WhiteboardAndroidDemo/.DS_Store
+/android/WhiteboardAndroidDemo/build
+/android/WhiteboardAndroidDemo/captures
+/android/WhiteboardAndroidDemo/.externalNativeBuild
+/android/WhiteboardAndroidDemo/.cxx
+/android/WhiteboardAndroidDemo/local.properties
