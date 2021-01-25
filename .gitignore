@@ -1,2 +1,5 @@
 *.zip
 .DS_Store
+*local*
+web/node_modules
+web/package-lock.json

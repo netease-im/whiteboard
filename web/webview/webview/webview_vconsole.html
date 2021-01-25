@@ -17,7 +17,7 @@
       -ms-interpolation-mode: nearest-neighbor;
     }
 
-    #whiteboard-container {
+    #app {
       position: absolute;
       left: 0;
       top: 0;
@@ -44,27 +44,6 @@
       height: 46px;
       z-index: 999;
       pointer-events: none;
-    }</style>
-    
-    <link href="./css/webview.css" rel="stylesheet">
-  
-    <script src="./sdk/vconsole.min.js"></script>
-    <script>
-      // init vConsole
-      var vConsole = new VConsole();
-      console.log('互动白板VConsole');
-    </script>
-  </head>
-  
-  <body>
-    <div id="whiteboard-container">
-      <div id="whiteboard"></div>
-      <div id="webview-file-upload-widget"></div>
-    </div>
-    <script src="./sdk/NIM_Web_NIM_v7.7.0.js"></script>
-    <script src="./sdk/NIM_Web_WhiteBoard_v7.7.0.js"></script>
-    <script src="./sdk/DrawPlugin_v3.0.0.log.js"></script>
-    <script src="./sdk/Toolbar_v3.0.0.log.js"></script>
-    <script src="./sdk/PageControl_v3.0.0.log.js"></script>
-    <script src="./sdk/webview_v3.0.0.js"></script>
-  </body></html>
+    }</style><script src="./sdk/vconsole.min.js"></script><script>// init vConsole
+            var vConsole = new VConsole();
+            console.log('互动白板VConsole');</script><link href="webview.css" rel="stylesheet"></head><body><div id="app"><div id="whiteboard"></div><div id="tb"></div><div id="webview-file-upload-widget"></div></div><script src="./sdk/NIM_Web_NIM_v7.7.0.js"></script><script src="./sdk/NIM_Web_WhiteBoard_v7.7.0.js"></script><script src="./sdk/DrawPlugin_v3.0.1.log.js"></script><script src="./sdk/Toolbar_v3.0.1.log.js"></script><script src="./sdk/PageControl_v3.0.1.log.js"></script><script src="webview.9009d4ad.js"></script></body></html>

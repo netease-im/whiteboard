@@ -1,0 +1,14 @@
+{
+  "name": "whiteboard",
+  "version": "3.0.1",
+  "description": "",
+  "main": "copySDK.js",
+  "scripts": {
+    "copy-sdk": "node copySDK.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "fs-extra": "^9.1.0"
+  }
+}
