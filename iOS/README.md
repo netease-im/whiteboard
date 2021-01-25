@@ -1,5 +1,5 @@
 # Whiteboard
-云信互动白板基于云信实时通信网络，提供完整的多人实时白板互动服务。本仓库主要展视互动白板的 SDK 和 WebView 集成示例项目，帮助开发者自由、快速构建互动白板能力。
+本开源项目主要展视互动白板iOS端如何快速集成互动白板 WebView 接入方案，帮助开发者实现互动白板能力。
 
 ## 接口
   @interface NMCWhiteboardManager : NSObject
