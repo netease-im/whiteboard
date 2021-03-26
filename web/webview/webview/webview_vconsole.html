@@ -4,7 +4,7 @@
       padding: 0;
       height: 100%;
       width: 100%;
-      overflow: hidden;
+      /* overflow: hidden; */
       background: none !important;
     }
 
@@ -17,13 +17,8 @@
       -ms-interpolation-mode: nearest-neighbor;
     }
 
-    #app {
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 100;
+    #__vconsole .vc-switch{
+      bottom: 50% !important;
     }
 
     #whiteboard {
@@ -33,17 +28,8 @@
       bottom: 0;
       left: 0;
       height: 100%;
-    }
-
-    #tb {
-      /* */
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 46px;
-      z-index: 999;
-      pointer-events: none;
+      z-index: 100;
+      overflow: hidden;
     }</style><script src="./sdk/vconsole.min.js"></script><script>// init vConsole
             var vConsole = new VConsole();
-            console.log('互动白板VConsole');</script><link href="webview.css" rel="stylesheet"></head><body><div id="app"><div id="whiteboard"></div><div id="tb"></div><div id="webview-file-upload-widget"></div></div><script src="./sdk/NIM_Web_NIM_v8.0.0.js"></script><script src="./sdk/NIM_Web_WhiteBoard_v8.0.0.js"></script><script src="./sdk/DrawPlugin_v3.0.1.log.js"></script><script src="./sdk/Toolbar_v3.0.1.log.js"></script><script src="./sdk/PageControl_v3.0.1.log.js"></script><script src="webview.bc4997eb.js"></script></body></html>
+            console.log('互动白板VConsole');</script></head><body><script src="./sdk/WhiteBoardSDK_v3.1.0.log.js"></script><script src="./sdk/ToolCollection_v3.1.0.log.js"></script><div id="whiteboard"></div><script src="webview.fde91685.js"></script></body></html>

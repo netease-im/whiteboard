@@ -17,7 +17,7 @@
     <div id="app">
         <iframe width="800" height="450" src="./webview/webview_vconsole.html"></iframe>
     </div>
-    <script src='./config.js'></script>
+    <script src='./params.js'></script>
 
     <script type="text/javascript">
         const STUDENT_DEFAULT_COLORS = [
@@ -43,8 +43,10 @@
             switch(msg.action) {
                 case 'webPageLoaded':
                     login(params)
+                    break
+                case 'webJoinWBSucceed':
                     enableDraw(true)
-                    setDefaultColor(params)
+                    setInitColor(params)
                     break
                 case "webJoinWBFailed":
                 case "webCreateWBFailed":
@@ -73,26 +75,27 @@
       //客户端 --> webview
       //设置是否可以编辑
       function enableDraw(enable) {
-            window.frames[0].window.WebJSBridge(JSON.stringify({
-                action: 'jsEnableDraw',
-                param: {
-                    enable: enable
-                }
-            }))
+        window.frames[0].window.WebJSBridge(JSON.stringify({
+              action: 'jsDirectCall',
+              param: {
+                target: 'drawPlugin',
+                action: 'enableDraw',
+                params: [enable]
+              }
+          }))
       }
 
-      //客户端 --> webview
       //非主播端设置一个初始颜色
-      function setDefaultColor(params) {
-            if (params.account !== params.ownerAccount) {
-                const index = Math.floor(Math.random() * STUDENT_DEFAULT_COLORS.length)
-                window.frames[0].window.WebJSBridge(JSON.stringify({
-                    action: 'jsSetColor',
-                    param: {
-                        color: STUDENT_DEFAULT_COLORS[index]
-                    }
-                }))
+      function setInitColor(envParams) {
+        const index = Math.floor(Math.random() * (STUDENT_DEFAULT_COLORS.length-2)) + 2
+        window.frames[0].window.WebJSBridge(JSON.stringify({
+            action: 'jsDirectCall',
+            param: {
+                target: 'drawPlugin',
+                action: 'setColor',
+                params: [STUDENT_DEFAULT_COLORS[index]]
             }
+        }))
       }
   </script>
 
