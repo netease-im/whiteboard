@@ -1,8 +1,15 @@
 package com.netease.whiteboardandroiddemo.whiteboard;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
+import android.webkit.MimeTypeMap;
+import android.webkit.ValueCallback;
 import android.webkit.WebView;
+
+import androidx.annotation.Nullable;
 
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -11,16 +18,22 @@ import com.netease.nimlib.sdk.chatroom.model.ChatRoomKickOutEvent;
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage;
 import com.netease.whiteboardandroiddemo.Constant;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 public class WhiteboardJsInterface {
     private static final String TAG = "WhiteboardJsInterface";
     private final WeakReference<WhiteboardContractView> contractReference;
+    private ValueCallback<Uri[]> fileValueCallback;
 
     private final Observer<ChatRoomKickOutEvent> kickOutObserver = new Observer<ChatRoomKickOutEvent>() {
         @Override
@@ -62,6 +75,8 @@ public class WhiteboardJsInterface {
                 // Web页面已经准备好了
                 case "webPageLoaded":
                     login();
+                    break;
+                case "webJoinWBSucceed":
                     enableDraw();
                     setBrushColor();
                     break;
@@ -142,9 +157,15 @@ public class WhiteboardJsInterface {
     private void enableDraw() throws JSONException {
         JSONObject jsParam = new JSONObject();
         JSONObject param = new JSONObject();
-        jsParam.put("action", "jsEnableDraw");
+        JSONArray paramArr = new JSONArray();
+
+        jsParam.put("action", "jsDirectCall");
+
+        param.put("target", "drawPlugin");
+        param.put("action", "enableDraw");
+        paramArr.put(true);
+        param.put("params", paramArr);
         jsParam.put("param", param);
-        param.put("enable", true);
         runJs((jsParam.toString()));
     }
 
@@ -154,9 +175,15 @@ public class WhiteboardJsInterface {
         Log.i(TAG, String.format("set bush color %s with %s", colorStr, randomInt));
         JSONObject jsParam = new JSONObject();
         JSONObject param = new JSONObject();
-        jsParam.put("action", "jsSetColor");
+        JSONArray paramArr = new JSONArray();
+
+        jsParam.put("action", "jsDirectCall");
+
+        param.put("target", "drawPlugin");
+        param.put("action", "setColor");
+        paramArr.put(colorStr);
+        param.put("params", paramArr);
         jsParam.put("param", param);
-        param.put("color", colorStr);
         runJs((jsParam.toString()));
     }
 
@@ -177,5 +204,60 @@ public class WhiteboardJsInterface {
         ChatRoomServiceObserver chatRoomServiceObserver = NIMClient.getService(ChatRoomServiceObserver.class);
         chatRoomServiceObserver.observeKickOutEvent(kickOutObserver, register);
         chatRoomServiceObserver.observeReceiveMessage(receiveMessageObserver, register);
+    }
+
+    public synchronized void transferFile(Uri uri) {
+        if (fileValueCallback == null) {
+            return;
+        }
+
+        fileValueCallback.onReceiveValue(uri == null ? null : new Uri[]{uri});
+    }
+
+    public synchronized void setFileValueCallback(ValueCallback<Uri[]> callback) {
+        fileValueCallback = callback;
+    }
+
+
+    @Nullable
+    public File getFileFromUri(final Uri uri, final Context context) {
+        if(uri == null) {
+            return null;
+        }
+        //android10以上转换
+        if (ContentResolver.SCHEME_FILE.equals(uri.getScheme())) {
+            return new File(uri.getPath());
+        }
+        if (!ContentResolver.SCHEME_CONTENT.equals(uri.getScheme())) {
+            return null;
+        }
+        //把文件复制到沙盒目录
+        ContentResolver contentResolver = context.getContentResolver();
+        String displayName = UUID.randomUUID().toString() + System.currentTimeMillis()
+                +"."+ MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri));
+
+        try {
+            InputStream is = contentResolver.openInputStream(uri);
+            File file = new File(context.getExternalCacheDir().getAbsolutePath(), displayName);
+            FileOutputStream fos = new FileOutputStream(file);
+
+            int bufferSize = 1024;
+            byte[] byteBuffer = new byte[bufferSize];
+            int size;
+            do {
+                size = is.read(byteBuffer);
+                if (size == 0) {
+                    break;
+                }
+                fos.write(byteBuffer, 0, size);
+            }
+            while (size >= bufferSize);
+            fos.close();
+            is.close();
+            return file;
+        } catch (Throwable e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

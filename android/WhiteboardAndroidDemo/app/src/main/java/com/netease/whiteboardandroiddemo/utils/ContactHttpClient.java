@@ -32,6 +32,9 @@ public class ContactHttpClient {
     private static final int RESULT_CODE_SUCCESS = 200;
     private static final int RESULT_CODE_INVALID = 1000;
 
+    // api
+    private static final String API_NAME_REGISTER = "createDemoUser";
+
     // header
     private static final String HEADER_KEY_APP_KEY = "appkey";
     private static final String HEADER_CONTENT_TYPE = "Content-Type";
@@ -72,7 +75,7 @@ public class ContactHttpClient {
      * 由应用服务器调用WEB SDK接口将新注册的用户数据同步到云信服务器
      */
     public void register(final ContactHttpCallback<LoginInfo> callback) {
-        String url = Constant.API_SERVER;
+        String url = Constant.API_SERVER + API_NAME_REGISTER;
         String uuid = UUID.randomUUID().toString().toLowerCase();
         String account = uuid.replace("-", "").substring(0, 20);
         String nick = account.substring(0, 10);
