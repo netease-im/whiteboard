@@ -23,10 +23,15 @@ whiteboardSDK.joinRoom({
     channel: params.channel,
     createRoom: true
 }, {
-    ondisconnected: () => {
+    ondisconnected: (err) => {
+        console.error(err)
+        /**
+         * toast的classname是：whiteboard-toast
+         */
         WhiteBoardSDK.showToast({
             msg: '连接已断开',
-            type: 'error'
+            type: 'error',
+            time: 3
         })
     }
 })
