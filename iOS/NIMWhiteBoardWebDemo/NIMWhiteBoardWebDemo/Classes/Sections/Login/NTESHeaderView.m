@@ -35,6 +35,35 @@
 - (void)refreshWithRoomId:(NSString *)roomId user:(NSString *)userName {
     self.roomIDLabel.text = roomId;
     self.userLabel.text = userName;
+    float left =10 , right = 10;
+    [self.roomLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self);
+        make.left.mas_equalTo(self.mas_left).offset(left);
+    }];
+    
+    [self.roomIDLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self);
+        make.left.equalTo(self.roomLabel.mas_right);
+    }];
+    
+    [self.pasteButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self);
+        make.left.equalTo(self.roomIDLabel.mas_right);
+        make.width.equalTo(@40);
+        make.height.equalTo(@(50));
+    }];
+    
+    [self.exitButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self);
+        make.right.mas_equalTo(self.mas_right).offset(-right);
+        make.width.equalTo(@100);
+        make.height.equalTo(@(50));
+    }];
+    
+    [self.userLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self);
+        make.right.equalTo(self.exitButton.mas_left);
+    }];
 }
 
 
@@ -53,42 +82,6 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
-    float left =10 , right = 10;
-    [self.roomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
-        make.left.mas_equalTo(self.mas_left).offset(left);
-        make.width.equalTo(@80);
-        make.height.equalTo(@(self.height));
-    }];
-    
-    [self.roomIDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
-        make.left.equalTo(self.roomLabel.mas_right);
-        make.width.equalTo(@100);
-        make.height.equalTo(@(self.height));
-    }];
-    
-    [self.pasteButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
-        make.left.equalTo(self.roomIDLabel.mas_right);
-        make.width.equalTo(@40);
-        make.height.equalTo(@(50));
-    }];
-    
-    [self.exitButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
-        make.right.mas_equalTo(self.mas_right).offset(-right);
-        make.width.equalTo(@100);
-        make.height.equalTo(@(50));
-    }];
-    
-    [self.userLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
-        make.right.equalTo(self.exitButton.mas_left);
-        make.width.equalTo(@100);
-        make.height.equalTo(@(self.height));
-    }];
 }
 
 - (UILabel*)roomLabel{

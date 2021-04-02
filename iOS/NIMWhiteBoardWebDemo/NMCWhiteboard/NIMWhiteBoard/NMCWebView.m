@@ -87,6 +87,9 @@
 //    NSLog(@"---> after config : %lu, %d", (unsigned long)self.configuration.mediaTypesRequiringUserActionForPlayback, self.configuration.allowsInlineMediaPlayback);
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+}
 
 - (void)dealloc{
     //清除handler

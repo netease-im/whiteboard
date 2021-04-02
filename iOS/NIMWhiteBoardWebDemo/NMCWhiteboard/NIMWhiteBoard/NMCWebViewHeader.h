@@ -29,7 +29,14 @@
 #define NMCMethodActionSetColor @"jsSetColor"
 //退出web
 #define NMCMethodActionWebLogout @"jsLogoutIMAndLeaveWB"
+//设置JS调用命令
+#define NMCMethodActionJSDirectCall @"jsDirectCall"
 
+#define NMCMethodTargetDrawPlugin @"drawPlugin"
+
+#define NMCMethodTargetActionEnableDraw @"enableDraw"
+
+#define NMCMethodTargetActionSetColor @"setColor"
 
 
 //页面加载完成

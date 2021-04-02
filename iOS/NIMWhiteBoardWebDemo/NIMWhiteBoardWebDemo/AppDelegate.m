@@ -58,7 +58,7 @@
 {
     if (self.allowRotation == YES) {
         //横屏
-        return UIInterfaceOrientationMaskLandscape;
+        return UIInterfaceOrientationMaskAllButUpsideDown;
     }else{
         //竖屏
         return UIInterfaceOrientationMaskPortrait;

@@ -80,16 +80,14 @@
 
 - (void)callEnableDraw:(BOOL)enable
 {
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:@(enable) forKey:@"enable"];
-    [[NMCMessageHandlerDispatch sharedManager] nativeCallWebWithWebView:_webview action:NMCMethodActionEnableDraw param:param];
+    NSDictionary *targetParam = @{@"target": NMCMethodTargetDrawPlugin, @"action": NMCMethodTargetActionEnableDraw, @"params": @[@(enable)]};
+    [[NMCMessageHandlerDispatch sharedManager] nativeCallWebWithWebView:_webview action:NMCMethodActionJSDirectCall param:targetParam];
 }
 
 - (void)setWhiteboardColor:(NSString *)color
 {
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:color forKey:@"color"];
-    [[NMCMessageHandlerDispatch sharedManager] nativeCallWebWithWebView:_webview action:NMCMethodActionSetColor param:param];
+    NSDictionary *targetParam = @{@"target": NMCMethodTargetDrawPlugin, @"action": NMCMethodTargetActionSetColor, @"params": @[color]};
+    [[NMCMessageHandlerDispatch sharedManager] nativeCallWebWithWebView:_webview action:NMCMethodActionJSDirectCall param:targetParam];
 }
 
 #pragma mark - Private
@@ -189,9 +187,13 @@
 //发送请求之前决定是否跳转
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
-    NSString *requestString = navigationAction.request.URL.absoluteString;
-    NSLog(@"[WK] decidePolicyForNavigationAction %@",requestString);
-    decisionHandler(WKNavigationActionPolicyAllow);
+    if([self.wkDelegate respondsToSelector:@selector(onDecidePolicyForNavigationAction:decisionHandler:)]) {
+        [self.wkDelegate onDecidePolicyForNavigationAction:navigationAction decisionHandler:decisionHandler];
+    }else {
+        NSString *requestString = navigationAction.request.URL.absoluteString;
+        NSLog(@"[WK] decidePolicyForNavigationAction %@",requestString);
+        decisionHandler(WKNavigationActionPolicyAllow);
+    }
 }
 
 - (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler {
@@ -201,9 +203,13 @@
 //在收到响应后，决定是否跳转(表示当客户端收到服务器的响应头，根据response相关信息，可以决定这次跳转是否可以继续进行。
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler
 {
-    NSURLResponse *response = navigationResponse.response;
-    NSLog(@"[WK] decidePolicyForNavigationResponse %@",response);
-    decisionHandler(WKNavigationResponsePolicyAllow);
+    if([self.wkDelegate respondsToSelector:@selector(onDecidePolicyForNavigationResponse:decisionHandler:)]) {
+        [self.wkDelegate onDecidePolicyForNavigationResponse:navigationResponse decisionHandler:decisionHandler];
+    }else {
+        NSURLResponse *response = navigationResponse.response;
+        NSLog(@"[WK] decidePolicyForNavigationResponse %@",response);
+        decisionHandler(WKNavigationResponsePolicyAllow);
+    }
 }
 
 //页面开始加载时调用

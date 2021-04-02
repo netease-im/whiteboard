@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NMCWhiteboardManager : NSObject
 
 @property(nonatomic, weak) id<NMCWhiteboardManagerDelegate> delegate;
+@property(nonatomic, weak) id<NMCWhiteboardManagerWKDelegate> wkDelegate;
 
 + (instancetype)sharedManager;
 

@@ -17,10 +17,12 @@
 #import "NTESHeaderView.h"
 #import "UIAlertView+NTESBlock.h"
 #import "UIView+NTES.h"
+#import <Photos/Photos.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 #define kTitleViewHeight 40
 
-@interface NTESMeetingViewController ()<NIMChatroomManagerDelegate, NIMLoginManagerDelegate, NMCWhiteboardManagerDelegate, NTESHeaderViewDelegate>
+@interface NTESMeetingViewController ()<NIMChatroomManagerDelegate, NIMLoginManagerDelegate, NMCWhiteboardManagerDelegate, NTESHeaderViewDelegate, NMCWhiteboardManagerWKDelegate>
 @property (nonatomic, copy) NIMChatroom *chatroom;
 @property (nonatomic, strong) WKWebView *webview;
 @property (nonatomic, strong) NTESHeaderView *titleView;
@@ -58,12 +60,11 @@ NTES_USE_CLEAR_BAR
     AppDelegate * appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     //允许转成横屏
     appDelegate.allowRotation = YES;
-    //调用横屏代码
-    [UIDevice switchNewOrientation:UIInterfaceOrientationLandscapeRight];
     
     [[NIMSDK sharedSDK].chatroomManager addDelegate:self];
     [[NIMSDK sharedSDK].loginManager addDelegate:self];
     [NMCWhiteboardManager sharedManager].delegate = self;
+    [NMCWhiteboardManager sharedManager].wkDelegate = self;
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -73,21 +74,72 @@ NTES_USE_CLEAR_BAR
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:self.webview];
-    self.webview.frame = CGRectMake(self.view.bounds.origin.y, self.view.bounds.origin.x+kTitleViewHeight, self.view.bounds.size.height, self.view.bounds.size.width-kTitleViewHeight);
+    NSUInteger offset = ([UIDevice currentDevice].orientation != UIDeviceOrientationLandscapeLeft && [UIDevice currentDevice].orientation != UIDeviceOrientationLandscapeRight) ? 40 : 0;
     
-    
-    self.titleView = [[NTESHeaderView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.y, self.view.bounds.origin.x, self.view.bounds.size.height, kTitleViewHeight)];
+    self.titleView = [[NTESHeaderView alloc] initWithFrame:CGRectZero];
     [self.titleView refreshWithRoomId:self.chatroom.roomId user:[NTESLoginManager sharedManager].currentNTESLoginData.account];
     self.titleView.deleagte = self;
     self.titleView.backgroundColor = UIColorFromRGB(0xd7dade);
-
-    [[UIApplication sharedApplication].keyWindow addSubview:self.titleView];
     [self.view addSubview:self.titleView];
+    [self.titleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(offset);
+        make.left.mas_equalTo(0);
+        make.width.mas_equalTo(self.view);
+        make.height.mas_equalTo(kTitleViewHeight);
+    }];
+    [self.webview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(0);
+        make.top.mas_equalTo(self.titleView.bottom);
+        make.width.mas_equalTo(self.view);
+        make.bottom.mas_equalTo(self.view);
+    }];
+    //开启和监听 设备旋转的通知（不开启的话，设备方向一直是UIInterfaceOrientationUnknown）
+    if (![UIDevice currentDevice].generatesDeviceOrientationNotifications) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    }
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleDeviceOrientationChange:)
+                                                name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+//设备方向改变的处理
+- (void)handleDeviceOrientationChange:(NSNotification *)notification{
+    if([UIDevice currentDevice].systemVersion.doubleValue < 10.0) {
+        dispatch_after(0.25, dispatch_get_main_queue(), ^{
+            [self.webview setNeedsLayout];
+            [self.webview layoutIfNeeded];
+            //whiteboard
+            __weak typeof(self) weakself = self;
+            [self.webview.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if([obj isKindOfClass:NSClassFromString(@"WKContentView")]) {
+                    obj.frame = weakself.webview.scrollView.bounds;
+                    *stop = YES;
+                }
+            }];
+        });
+    }
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+    NSUInteger offset = ([UIDevice currentDevice].orientation != UIDeviceOrientationLandscapeLeft && [UIDevice currentDevice].orientation != UIDeviceOrientationLandscapeRight) ? 40 : 0;
+    [self.titleView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(offset);
+    }];
+    [self.webview mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.titleView.bottom);
+    }];
+    [self.webview setNeedsLayout];
+    [self.webview layoutIfNeeded];
 }
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+}
+
 
 - (void)dealloc{
     [[NIMSDK sharedSDK].chatroomManager exitChatroom:_chatroom.roomId completion:nil];
@@ -96,10 +148,12 @@ NTES_USE_CLEAR_BAR
     [self leaveRoom];
     
     [self.titleView removeFromSuperview];
-
+    
     [UIApplication sharedApplication].idleTimerDisabled = NO;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [[UIDevice currentDevice]endGeneratingDeviceOrientationNotifications];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -125,16 +179,16 @@ NTES_USE_CLEAR_BAR
 }
 
 - (void)keyboardWillShow:(NSNotification*)notification {
-
+    
 }
 
 - (void)keyboardWillHide:(NSNotification*)notification {
-
+    
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskLandscape;
+    return UIInterfaceOrientationMaskAll;
 }
 
 - (void)onExitRoom:(NSString *)text {
@@ -199,7 +253,7 @@ NTES_USE_CLEAR_BAR
                     break;
             }
         }
-
+        
         DDLogInfo(@"[demo] chatroom be kicked, roomId:%@  reason:%@",result.roomId,toast);
         
         [self onBeExitRoom:toast];
@@ -262,11 +316,11 @@ NTES_USE_CLEAR_BAR
         _webview.backgroundColor = [UIColor whiteColor];
         _webview.layer.borderWidth = 1;
         _webview.layer.borderColor = UIColorFromRGB(0xd7dade).CGColor;
-//        _webview.scrollView.backgroundColor = [UIColor redColor];
-//        _webview.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-
-//        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
-
+        //        _webview.scrollView.backgroundColor = [UIColor redColor];
+        //        _webview.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        
+        //        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
+        
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NTESDemoConfig sharedConfig].whiteBoardURL]];
         [_webview loadRequest:request];
         
@@ -276,7 +330,7 @@ NTES_USE_CLEAR_BAR
             }
         }
         if (@available(iOS 12.0, *)) {
-             _webview.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
+            _webview.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
         }
     }
     return _webview;
@@ -284,23 +338,23 @@ NTES_USE_CLEAR_BAR
 
 - (void)clearWebViewCache {
     if ([[[UIDevice currentDevice]systemVersion]intValue ] >= 9.0) {
-         NSArray * types =@[WKWebsiteDataTypeMemoryCache,WKWebsiteDataTypeDiskCache]; // 9.0之后才有的
-         NSSet *websiteDataTypes = [NSSet setWithArray:types];
-         NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
-         [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{}];
-     }else{
-         NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,NSUserDomainMask,YES) objectAtIndex:0];
-         NSString *cookiesFolderPath = [libraryPath stringByAppendingString:@"/Cookies"];
-         NSLog(@"%@", cookiesFolderPath);
-         NSError *errors;
-         [[NSFileManager defaultManager] removeItemAtPath:cookiesFolderPath error:&errors];
-     }
+        NSArray * types =@[WKWebsiteDataTypeMemoryCache,WKWebsiteDataTypeDiskCache]; // 9.0之后才有的
+        NSSet *websiteDataTypes = [NSSet setWithArray:types];
+        NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
+        [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{}];
+    }else{
+        NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,NSUserDomainMask,YES) objectAtIndex:0];
+        NSString *cookiesFolderPath = [libraryPath stringByAppendingString:@"/Cookies"];
+        NSLog(@"%@", cookiesFolderPath);
+        NSError *errors;
+        [[NSFileManager defaultManager] removeItemAtPath:cookiesFolderPath error:&errors];
+    }
 }
 
 #pragma mark - NMCWhiteboardManagerDelegate
 - (void)onWebPageLoaded {
     NSLog(@"[demo] ===> onWebPageLoaded");
-
+    
     NMCWebLoginParam *param = [[NMCWebLoginParam alloc] init];
     param.channelName = self.chatroom.roomId;
     param.debug = YES;
@@ -310,7 +364,7 @@ NTES_USE_CLEAR_BAR
     param.token = [NTESLoginManager sharedManager].currentNTESLoginData.token;
     param.record = YES;
     param.ownerAccount = self.chatroom.creator;
-
+    
     [[NMCWhiteboardManager sharedManager] callWebLoginIM:param];
 }
 
@@ -371,4 +425,56 @@ NTES_USE_CLEAR_BAR
         [self leaveRoom];
     }
 }
+
+#pragma mark- WK Delgate
+
+- (void)onDecidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    if([self needSaveImage:navigationAction]) {
+        decisionHandler(WKNavigationActionPolicyCancel);
+    }else {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    }
+}
+
+- (void)onDecidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
+    decisionHandler(WKNavigationResponsePolicyAllow);
+}
+
+#pragma mark Save Image
+
+- (BOOL)needSaveImage:(WKNavigationAction *)navigationAction {
+    NSString *requestString = navigationAction.request.URL.absoluteString;
+    NSLog(@"[WK] decidePolicyForNavigationAction %@",requestString);
+    if(navigationAction.navigationType == WKNavigationTypeLinkActivated && [requestString rangeOfString:@"data:image/png;base64,"].location != NSNotFound) {
+        NSString *dataString = [requestString stringByReplacingOccurrencesOfString:@"data:image/png;base64," withString:@""];
+        NSData *imageData = [[NSData alloc]initWithBase64EncodedString:dataString options:NSDataBase64DecodingIgnoreUnknownCharacters];;
+        UIImage *image = [UIImage imageWithData:imageData];
+        PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+        if(status == PHAuthorizationStatusNotDetermined) {
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                
+            }];
+        }
+        if (status == PHAuthorizationStatusRestricted ||
+            status == PHAuthorizationStatusDenied) {
+            [self.view makeToast:@"请开启相册权限" duration:2.0 position:CSToastPositionCenter];
+        }else {
+            UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void*)self);
+        }
+        return YES;
+    }
+    return NO;
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo: (void *)contextInfo {
+    if (error != nil) {
+        NSLog(@"Image Can not be saved");
+        NSString *errMsg = [NSString stringWithFormat:@"图片保存失败%@", error.localizedDescription];
+        [self.view makeToast:errMsg duration:2.0 position:CSToastPositionCenter];
+    } else {
+        NSLog(@"Successfully saved Image");
+        [self.view makeToast:@"图片保存成功" duration:2.0 position:CSToastPositionCenter];
+    }
+}
+
 @end

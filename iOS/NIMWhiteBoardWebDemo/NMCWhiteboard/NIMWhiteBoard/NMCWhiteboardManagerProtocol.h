@@ -79,4 +79,28 @@
 
 @end
 
+@protocol NMCWhiteboardManagerWKDelegate <NSObject>
+
+@optional
+/*! @abstract Decides whether to allow or cancel a navigation.
+ @param navigationAction Descriptive information about the action
+ triggering the navigation request.
+ @param decisionHandler The decision handler to call to allow or cancel the
+ navigation. The argument is one of the constants of the enumerated type WKNavigationActionPolicy.
+ @discussion If you do not implement this method, the web view will load the request or, if appropriate, forward it to another application.
+ */
+- (void)onDecidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler;
+
+/*! @abstract Decides whether to allow or cancel a navigation after its
+ response is known.
+ @param navigationResponse Descriptive information about the navigation
+ response.
+ @param decisionHandler The decision handler to call to allow or cancel the
+ navigation. The argument is one of the constants of the enumerated type WKNavigationResponsePolicy.
+ @discussion If you do not implement this method, the web view will allow the response, if the web view can show it.
+ */
+- (void)onDecidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler;
+
+@end
+
 #endif /* NMCWhiteboardManagerProtocol_h */
