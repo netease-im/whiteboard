@@ -5,6 +5,8 @@
 
   @property(nonatomic, weak) id<NMCWhiteboardManagerDelegate> delegate;
 
+  @property(nonatomic, weak) id<NMCWhiteboardManagerWKDelegate> wkDelegate;
+
   + (instancetype)sharedManager;
 
   - (WKWebView *)createWebViewFrame:(CGRect)frame;
