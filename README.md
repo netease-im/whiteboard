@@ -7,5 +7,5 @@
   - 支持文档上传共享转码
 
 ## 示例集成
-  - [SDK接入说明](https://dev.yunxin.163.com/docs/product/%E4%BA%92%E5%8A%A8%E7%99%BD%E6%9D%BF3.0/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/%E9%9B%86%E6%88%90SDK)
-  - [WebView接入说明](https://dev.yunxin.163.com/docs/product/%E4%BA%92%E5%8A%A8%E7%99%BD%E6%9D%BF3.0/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/%E9%9B%86%E6%88%90Webview)
+  - [SDK接入说明](https://dev.yunxin.163.com/docs/product/%E4%BA%92%E5%8A%A8%E7%99%BD%E6%9D%BF/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/Javascript%E6%8E%A5%E5%85%A5)
+  - [WebView接入说明](https://dev.yunxin.163.com/docs/product/%E4%BA%92%E5%8A%A8%E7%99%BD%E6%9D%BF/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A5%E5%85%A5/%E6%8E%A5%E5%85%A5webview)
