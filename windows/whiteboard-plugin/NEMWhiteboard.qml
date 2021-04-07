@@ -17,6 +17,7 @@ Item {
     property string whiteboardAppKey: ""
     property bool whiteboardRecord: false
     property bool whiteboardDebug: false
+    property string defaultDownloadPath: ""
 
     signal createWriteBoardSucceed()
     signal createWriteBoardFailed(string errorMessage)
@@ -26,6 +27,7 @@ Item {
     signal writeBoardError(string errorMessage)
     signal loginIMSucceed()
     signal loginIMFailed(string errorMessage)
+    signal downloadFinished(string path)
 
     NEMJsBridge {
         id: jsBridge
@@ -33,8 +35,6 @@ Item {
 
         onWebPageLoadFinished: {
             loginWhiteboard()
-            enableDraw()
-            setWhiteboardColor()
         }
 
         onWebCreateWriteBoardSucceed: {
@@ -46,6 +46,9 @@ Item {
         }
 
         onWebJoinWriteBoardSucceed: {
+            console.log("onWebJoinWriteBoardSucceed")
+            setWhiteboardColor()
+            enableDraw()
             joinWriteBoardSucceed()
         }
 
@@ -79,6 +82,19 @@ Item {
         anchors.fill: parent
         url: whiteboardUrl
         webChannel: channel
+
+        property var downloads;
+        profile.onDownloadRequested: {
+            var arr = download.path.split('/');
+            var name = arr[arr.length - 1];
+            download.path = defaultDownloadPath + "/" + name;
+            webview.downloads = download;
+            download.accept();
+        }
+
+        profile.onDownloadFinished: {
+            downloadFinished(download.path)
+        }
     }
 
     WebChannel {
@@ -122,8 +138,12 @@ Item {
     function enableDraw(){
         var jsonObj = {}
         var jsonParam = {}
-        jsonObj.action = "jsEnableDraw"
-        jsonParam.enable = true
+        var paramArray = [true]
+
+        jsonObj.action = "jsDirectCall"
+        jsonParam.target = "drawPlugin"
+        jsonParam.action = "enableDraw"
+        jsonParam.params = paramArray
         jsonObj.param = jsonParam
 
         sendMessageToWeb(jsonObj);
@@ -132,9 +152,14 @@ Item {
     function setWhiteboardColor(){
         var jsonObj = {}
         var jsonParam = {}
-        jsonObj.action = "jsSetColor"
-        jsonParam.color = getRandomColor()
-        console.log("jsonParam.color", jsonParam.color)
+
+        var color = getRandomColor()
+        var paramArray = [color]
+
+        jsonObj.action = "jsDirectCall"
+        jsonParam.target = "drawPlugin"
+        jsonParam.action = "setColor"
+        jsonParam.params = paramArray
         jsonObj.param = jsonParam
 
         sendMessageToWeb(jsonObj);

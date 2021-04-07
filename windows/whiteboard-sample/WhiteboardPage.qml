@@ -161,6 +161,7 @@ Window {
             whiteboardOwnerAccount: NEMChatroomManager.getCreator()
             whiteboardRecord: false
             whiteboardDebug: false
+            defaultDownloadPath: WhiteboardHelper.getDefaultDownloadPath()
             whiteboardUrl: "https://app.yunxin.163.com/webdemo/whiteboard/webview.html"
 
             function confirm(){
@@ -186,6 +187,11 @@ Window {
 
             onLoginIMFailed: {
                 dynamicDialog("", "加入白板失败", confirm, cancel, "确定", "")
+            }
+
+            onDownloadFinished: {
+                WhiteboardHelper.openDir(path)
+                toast.show("图片导出中...")
             }
         }
     }

@@ -21,7 +21,8 @@ SOURCES += \
         login/nem_chatroom_manager.cpp \
         login/nem_login_manager.cpp \
         main.cpp \
-        util/clipboard.cpp
+        util/clipboard.cpp \
+        util/whiteboard_helper.cpp
 
 RESOURCES += qml.qrc
 
@@ -44,7 +45,8 @@ HEADERS += \
     http/nem_request.h \
     login/nem_chatroom_manager.h \
     login/nem_login_manager.h \
-    util/clipboard.h
+    util/clipboard.h \
+    util/whiteboard_helper.h
 
 win32 {
     INCLUDEPATH += \
