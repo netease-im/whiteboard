@@ -70,7 +70,6 @@
 		0E9FE464259B534C0055C802 /* NTESDemoConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FE370259B534B0055C802 /* NTESDemoConfig.m */; };
 		0E9FE465259B534C0055C802 /* NTESPinyinConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FE372259B534B0055C802 /* NTESPinyinConverter.m */; };
 		0E9FE466259B534C0055C802 /* NTESSpellingCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FE374259B534B0055C802 /* NTESSpellingCenter.m */; };
-		0E9FE4CD259B5C1A0055C802 /* NIMHackerLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FE4CB259B5C1A0055C802 /* NIMHackerLoader.m */; };
 		0EB3F9EE259D659300435BD5 /* NMCWhiteboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E9FE0B0259B226F0055C802 /* NMCWhiteboard.framework */; };
 		0EB3F9EF259D659300435BD5 /* NMCWhiteboard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E9FE0B0259B226F0055C802 /* NMCWhiteboard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0EB3FA10259D665C00435BD5 /* NMCCallNativeMethodMessageHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EB3FA01259D665C00435BD5 /* NMCCallNativeMethodMessageHandler.h */; };
@@ -243,8 +242,6 @@
 		0E9FE374259B534B0055C802 /* NTESSpellingCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESSpellingCenter.m; sourceTree = "<group>"; };
 		0E9FE375259B534B0055C802 /* NTESPinyinConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESPinyinConverter.h; sourceTree = "<group>"; };
 		0E9FE479259B53D90055C802 /* NIMWhiteBoardWebDemo.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NIMWhiteBoardWebDemo.pch; sourceTree = "<group>"; };
-		0E9FE4CB259B5C1A0055C802 /* NIMHackerLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMHackerLoader.m; sourceTree = "<group>"; };
-		0E9FE4CC259B5C1A0055C802 /* NIMHackerLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMHackerLoader.h; sourceTree = "<group>"; };
 		0EB3FA01259D665C00435BD5 /* NMCCallNativeMethodMessageHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMCCallNativeMethodMessageHandler.h; sourceTree = "<group>"; };
 		0EB3FA02259D665C00435BD5 /* NMCCallWebMethodMessageHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMCCallWebMethodMessageHandler.m; sourceTree = "<group>"; };
 		0EB3FA03259D665C00435BD5 /* NMCWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMCWebView.h; sourceTree = "<group>"; };
@@ -349,7 +346,6 @@
 		0E9FE145259B534B0055C802 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				0E9FE4CA259B5C1A0055C802 /* Hacker */,
 				0E9FE24A259B534B0055C802 /* Sections */,
 				0E9FE33D259B534B0055C802 /* Category */,
 				0E9FE356259B534B0055C802 /* Util */,
@@ -561,16 +557,6 @@
 				0E9FE374259B534B0055C802 /* NTESSpellingCenter.m */,
 			);
 			path = Spelling;
-			sourceTree = "<group>";
-		};
-		0E9FE4CA259B5C1A0055C802 /* Hacker */ = {
-			isa = PBXGroup;
-			children = (
-				0E9FE4CB259B5C1A0055C802 /* NIMHackerLoader.m */,
-				0E9FE4CC259B5C1A0055C802 /* NIMHackerLoader.h */,
-			);
-			name = Hacker;
-			path = ../../../NIMHackers/NIMWhiteboardWebHacker/Hacker;
 			sourceTree = "<group>";
 		};
 		0EB3FA00259D665C00435BD5 /* NIMWhiteBoard */ = {
@@ -819,7 +805,6 @@
 				0EB3FA34259D785D00435BD5 /* NTESHeaderView.m in Sources */,
 				0E9FE45D259B534C0055C802 /* NTESLogViewController.m in Sources */,
 				0E9FE447259B534C0055C802 /* NTESDemoService.m in Sources */,
-				0E9FE4CD259B5C1A0055C802 /* NIMHackerLoader.m in Sources */,
 				0E9FE458259B534C0055C802 /* NTESUserUtil.m in Sources */,
 				0E9FE431259B534C0055C802 /* UIViewController+Swizzling.m in Sources */,
 				0E9FE455259B534C0055C802 /* NSDictionary+NTESJson.m in Sources */,
@@ -1011,9 +996,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 7C9A6NRV5L;
+				DEVELOPMENT_TEAM = 569GNZ5392;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/NIMWhiteBoardWebDemo/NIMWhiteBoardWebDemo.pch";
 				INFOPLIST_FILE = NIMWhiteBoardWebDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1023,7 +1008,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.netease.NERtcDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = NERtcDemo;
+				PROVISIONING_PROFILE_SPECIFIER = "neteaseWildCard（enterprise）";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;

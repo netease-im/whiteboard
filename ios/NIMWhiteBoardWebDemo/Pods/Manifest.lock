@@ -8,7 +8,7 @@ PODS:
   - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
   - Masonry (1.1.0)
-  - NIMSDK_LITE (8.2.0)
+  - NIMSDK_LITE (8.2.5)
   - Reachability (3.1.1)
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
@@ -38,7 +38,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  NIMSDK_LITE: 9c8478842131fde7a5afaa965dedc8e017307def
+  NIMSDK_LITE: a480a8c1dd201c26738e0dde4926f4dd43e40bab
   Reachability: dd9aa4fb6667b9f787690a74f53cb7634ce99893
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
@@ -46,4 +46,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 91feb25fa56a9c33b21f0741a1b1b6534e1a8b10
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.1
