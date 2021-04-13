@@ -1,5 +1,7 @@
 本开源项目主要展示互动白板 iOS 端如何快速集成互动白板 WebView 接入方案，帮助开发者实现互动白板能力。
 
+> Note：github上有大小写不敏感问题，同一目录下不要有两个大小写相同的文件夹，example: iOS、ios
+
 ## 接口
   @interface NMCWhiteboardManager : NSObject
 
@@ -64,7 +66,7 @@
 
   /**
    提示web登录IM的错误及原因
-   
+
    @param code 错误码
    @param error 具体错误信息
    */
@@ -72,7 +74,7 @@
 
   /**
    提示web加入白板房间的错误及原因
-   
+
    @param code 错误码
    @param error 具体错误信息
    */
@@ -80,7 +82,7 @@
 
   /**
    提示web创建白板房间的错误及原因
-   
+
    @param code 错误码
    @param error 具体错误信息
    */
@@ -93,7 +95,7 @@
 
   /**
    web发生了网络异常
-   
+
    @param code 错误码
    @param error 具体错误信息
    */
@@ -101,10 +103,57 @@
 
   /**
    web抛出Js错误
-   
+
    @param error 具体错误信息
    */
   - (void)onWebJsError:(NSString *)error;
 
   @end
 
+> Note: WKWebview的导航代理，可以监听代理决定是否加载webview相关事件
+
+**@protocol** NMCWhiteboardManagerWKDelegate <NSObject>
+
+
+
+**@optional**
+
+/*! **@abstract** Decides whether to allow or cancel a navigation.
+
+ **@param** navigationAction Descriptive information about the action
+
+ triggering the navigation request.
+
+ **@param** decisionHandler The decision handler to call to allow or cancel the
+
+ navigation. The argument is one of the constants of the enumerated type WKNavigationActionPolicy.
+
+ **@discussion** If you do not implement this method, the web view will load the request or, if appropriate, forward it to another application.
+
+ */
+
+\- (**void**)onDecidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(**void** (^)(WKNavigationActionPolicy))decisionHandler;
+
+
+
+/*! **@abstract** Decides whether to allow or cancel a navigation after its
+
+ response is known.
+
+ **@param** navigationResponse Descriptive information about the navigation
+
+ response.
+
+ **@param** decisionHandler The decision handler to call to allow or cancel the
+
+ navigation. The argument is one of the constants of the enumerated type WKNavigationResponsePolicy.
+
+ **@discussion** If you do not implement this method, the web view will allow the response, if the web view can show it.
+
+ */
+
+\- (**void**)onDecidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(**void** (^)(WKNavigationResponsePolicy))decisionHandler;
+
+
+
+**@end**
