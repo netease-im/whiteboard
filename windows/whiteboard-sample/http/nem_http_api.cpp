@@ -10,7 +10,7 @@ NEMRequest* NEMHttpApi::createChatroom(const QString& creator, const QString& na
     QMap<QString, QString> headerParamMap;
     headerParamMap["appKey"] = appKey;
 
-    return NEMHttpManager::instance().post("", headerParamMap, payloadParamMap, 10000);
+    return NEMHttpManager::instance().post("https://app.netease.im/api/chatroom/create", headerParamMap, payloadParamMap, 10000);
 }
 
 NEMRequest* NEMHttpApi::closeChatroom(const QString& roomid, const QString& uid, const QString& appKey) {
@@ -21,7 +21,7 @@ NEMRequest* NEMHttpApi::closeChatroom(const QString& roomid, const QString& uid,
     QMap<QString, QString> headerParamMap;
     headerParamMap["appKey"] = appKey;
 
-    return NEMHttpManager::instance().post("", headerParamMap, payloadParamMap, 10000);
+    return NEMHttpManager::instance().post("https://app.netease.im/api/chatroom/close", headerParamMap, payloadParamMap, 10000);
 }
 
 NEMRequest* NEMHttpApi::registerAccount(const QString& userName, const QString& nickName, const QString& password, const QString& appKey) {
@@ -35,6 +35,5 @@ NEMRequest* NEMHttpApi::registerAccount(const QString& userName, const QString& 
     headerParamMap["appkey"] = appKey;
     headerParamMap["User-Agent"] = "nim_demo_pc";
 
-	
-    return NEMHttpManager::instance().post("", headerParamMap, payloadParamMap, false, 10000);
+    return NEMHttpManager::instance().post("https://app.netease.im/api/createDemoUser", headerParamMap, payloadParamMap, false, 10000);
 }

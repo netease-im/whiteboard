@@ -5,6 +5,7 @@
 #include "nim_cpp_client.h"
 #include "nim_cpp_tool.h"
 
+// 输入您的IM appkey
 #define app_key ""
 
 using namespace nim;
