@@ -1,0 +1,4 @@
+node_modules
+dist
+whiteboard-electron-darwin-x64
+whiteboard-electron-win32-x64
