@@ -9,10 +9,10 @@ function getParams() {
      * debug:             开发模式下开启
      */
     const uid = Math.round(Math.random() * 10000000000)
-    const channel = '2342342'
-    const appKey = ''
-    const appSecret = ''
-    const platform = 'ios'
+    const channel = '132222123'
+    const appKey = 'caee83f25bef456b13b4e9f54c8da4c8'
+    const appSecret = 'c45c1fa7999e'
+    const platform = 'web'
     const record = true
     const debug = true
 
