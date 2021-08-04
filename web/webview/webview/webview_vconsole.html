@@ -1,11 +1,13 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>互动白板</title><style media="screen">html,
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>互动白板</title><style media="screen">html,
     body {
       margin: 0;
-      padding: 0;
+      padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
       height: 100%;
       width: 100%;
-      /* overflow: hidden; */
+      overflow: hidden;
       background: none !important;
+      touch-action: none;
     }
 
     canvas {
@@ -32,4 +34,4 @@
       overflow: hidden;
     }</style><script src="./sdk/vconsole.min.js"></script><script>// init vConsole
             var vConsole = new VConsole();
-            console.log('互动白板VConsole');</script></head><body><script src="./sdk/WhiteBoardSDK_v3.1.0.log.js"></script><script src="./sdk/ToolCollection_v3.1.0.log.js"></script><div id="whiteboard"></div><script src="webview.bf3e4cc7.js"></script></body></html>
+            console.log('互动白板VConsole');</script></head><body><script src="./sdk/WhiteBoardSDK_v3.3.0.js"></script><script src="./sdk/ToolCollection_v3.3.0.js"></script><div id="whiteboard"></div><script src="webview.6681d161.js"></script></body></html>
