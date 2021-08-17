@@ -13,24 +13,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <!-- 多媒体相关 -->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-
-    <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-
-    <!-- 8.0+系统需要-->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-    <!-- 下面的 uses-permission 一起加入到你的 AndroidManifest 文件中。 -->
-    <permission
-        android:name="com.netease.whiteboardandroiddemo.permission.RECEIVE_MSG"
-        android:protectionLevel="signature"/>
-
-    <uses-permission android:name="com.netease.whiteboardandroiddemo.permission.RECEIVE_MSG"/>
-
     <application
         android:name=".App"
         android:allowBackup="true"

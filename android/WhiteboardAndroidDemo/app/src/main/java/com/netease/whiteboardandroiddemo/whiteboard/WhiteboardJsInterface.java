@@ -55,12 +55,6 @@ public class WhiteboardJsInterface {
                     enableDraw();
                     setBrushColor();
                     break;
-                // NIM登录成功
-                case "webLoginIMSucceed":
-                    NELogger.i(TAG, "login Nim succeed");
-                    break;
-                // NIM登录失败
-                case "webLoginIMFailed":
                 // 网络异常
                 case "webJoinWBFailed":
                 // 网络异常
@@ -103,17 +97,15 @@ public class WhiteboardJsInterface {
 
         JSONObject jsParam = new JSONObject();
         JSONObject param = new JSONObject();
-        JSONObject toolbar = new JSONObject();
 
-        jsParam.put("action", "jsLoginIMAndJoinWB");
+        jsParam.put("action", "jsJoinWB");
         jsParam.put("param", param);
-        param.put("toolbar", toolbar);
         param.put("uid", Integer.parseInt(contract.getUid()));
         param.put("channelName", contract.getChannel());
         param.put("record", true);
         param.put("debug", true);
         param.put("platform", "android");
-        param.put("appKey", contract.getAppKey()); // (测试服)
+        param.put("appKey", contract.getAppKey());
 
         runJs((jsParam.toString()));
     }
@@ -127,7 +119,7 @@ public class WhiteboardJsInterface {
         JSONObject jsParam = new JSONObject();
         JSONObject param = new JSONObject();
         try {
-            jsParam.put("action", "jsLogoutIMAndLeaveWB");
+            jsParam.put("action", "jsLeaveWB");
             jsParam.put("param", param);
             runJs((jsParam.toString()));
         } catch (JSONException e) {

@@ -15,7 +15,7 @@ com.netease.whiteboardandroiddemo.Constant // 存放常量，运行工程需要�
 2. 在Constant中填入自己的APP_KEY, APP_SECRET和WEBVIEW_URL
 3. 通过Web或者PC端创建一个房间
 4. 运行工程，在房间号填写页面填写创建号的房间号
-5. 点击加入房间，注册并登陆IM，然后进入白板页面并打开白板
+5. 点击加入房间，然后进入白板页面并打开白板
 
 ## 备注
 
@@ -32,3 +32,7 @@ sample code中获取auth的流程如下：
 3. 应用服务器生成auth
 4. 应用服务器向客户端返回auth
 5. 客户端通过jsSendAuth返回auth
+
+日志获取
+当白板无法正常使用时，可查看weblog相关信息定位出错原因，日志默认路径位于：
+/data/data/com.netease.whiteboardandroiddemo/files/weblog/ne_whiteboard_xxxxxxx.log
