@@ -3,26 +3,26 @@ package com.netease.whiteboardandroiddemo.whiteboard;
 import android.app.Activity;
 import android.webkit.WebView;
 
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomKickOutEvent;
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage;
-
-import java.util.List;
-
 public interface WhiteboardContractView {
+    /**
+     * 获取AppKey
+     */
+    String getAppKey();
+
+    /**
+     * 获取AppSecret
+     */
+    String getAppSecret();
+
     /**
      * 获取通道，即房间号
      */
     String getChannel();
 
     /**
-     * 获取当前账号
+     * 获取UID
      */
-    String getAccount();
-
-    /**
-     * 获取房间创建者
-     */
-    String getOwnerAccount();
+    String getUid();
 
     /**
      * 获取展示白板用的{@link WebView}
@@ -34,16 +34,4 @@ public interface WhiteboardContractView {
      * @see Activity#finish()
      */
     void finish();
-
-    /**
-     * 被踢后
-     * @param event 被踢信息
-     */
-    void onKickOut(ChatRoomKickOutEvent event);
-
-    /**
-     * 收到消息后
-     * @param messageList 收到的消息列表
-     */
-    void onReceiveMessage(List<ChatRoomMessage> messageList);
 }

@@ -7,6 +7,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -18,36 +19,34 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.JsResult;
+import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.chatroom.ChatRoomService;
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomKickOutEvent;
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage;
 import com.netease.whiteboardandroiddemo.Constant;
 import com.netease.whiteboardandroiddemo.R;
 import com.netease.whiteboardandroiddemo.utils.HexDump;
+import com.netease.whiteboardandroiddemo.utils.NELogger;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 public class WhiteboardActivity extends AppCompatActivity implements WhiteboardContractView {
     private static final String TAG = "WhiteboardActivity";
     private WebView whiteboardWv;
+    private String appKey;
+    private String appSecret;
     private String roomId;
-    private String account;
-    private String ownerAccount;
+    private String uid;
+    private String webViewUrl;
 
     private TextView copiedToastTv;
     private Handler mainHandler;
@@ -68,21 +67,25 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
         bgHandler = new Handler(thread.getLooper());
         parseIntent();
         initViews();
-        jsInterface.registerObservers(true);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        NIMClient.getService(ChatRoomService.class).exitChatRoom(roomId);
         bgHandler.getLooper().quit();
     }
 
     private void parseIntent() {
         Intent intent = getIntent();
-        roomId = intent.getStringExtra(Constant.EXTRA_ROOM_ID);
-        account = intent.getStringExtra(Constant.EXTRA_ACCOUNT);
-        ownerAccount = intent.getStringExtra(Constant.EXTRA_OWNER_ACCOUNT);
+        appKey = intent.getStringExtra(Constant.KEY_APP_KEY);
+        appSecret = intent.getStringExtra(Constant.KEY_APP_SECRET);
+        uid = intent.getStringExtra(Constant.KEY_UID);
+        roomId = intent.getStringExtra(Constant.KEY_ROOM_ID);
+        webViewUrl = intent.getStringExtra(Constant.KEY_WEBVIEW_URL);
+
+        if (TextUtils.isEmpty(webViewUrl)) {
+            NELogger.e(TAG, "webViewUrl is null");
+        }
     }
 
     private void initViews() {
@@ -90,10 +93,8 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
         whiteboardWv = findViewById(R.id.wv_whiteboard);
 
         ((TextView) findViewById(R.id.tv_room_id)).setText(String.format(getString(R.string.room_id_is_has_s), roomId));
-        ((TextView) findViewById(R.id.tv_account)).setText(account);
         findViewById(R.id.ib_copy_room_id).setOnClickListener(v -> copyRoomId());
         findViewById(R.id.tv_exit_room).setOnClickListener(v -> {
-            jsInterface.registerObservers(false);
             jsInterface.logout();
             WhiteboardActivity.this.finish();
         });
@@ -133,6 +134,13 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
             }
         });
 
+        whiteboardWv.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed();
+            }
+        });
+
         whiteboardWv.setDownloadListener((url, userAgent, contentDisposition, mimeType, contentLength) -> {
             String key = "base64,";
             int keyIndex = url.indexOf(key);
@@ -161,8 +169,7 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
         });
 
         whiteboardWv.addJavascriptInterface(jsInterface, "jsBridge");
-        whiteboardWv.loadUrl(Constant.LOAD_URL);
-
+        whiteboardWv.loadUrl(webViewUrl);
     }
 
     @Override
@@ -204,18 +211,23 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
     }
 
     @Override
+    public String getAppKey() {
+        return appKey;
+    }
+
+    @Override
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    @Override
     public String getChannel() {
         return roomId;
     }
 
     @Override
-    public String getOwnerAccount() {
-        return ownerAccount;
-    }
-
-    @Override
-    public String getAccount() {
-        return account;
+    public String getUid() {
+        return uid;
     }
 
     @Override
@@ -226,21 +238,5 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
     @Override
     public void finish() {
         super.finish();
-    }
-
-    @Override
-    public void onKickOut(ChatRoomKickOutEvent event) {
-        AlertDialog kickOutDialog = new AlertDialog.Builder(this)
-                .setMessage(R.string.hint_room_invalid)
-                .setPositiveButton(R.string.ok_with_blank, (dialog, which) -> {
-                    finish();
-                })
-                .setCancelable(false)
-                .create();
-        kickOutDialog.show();
-    }
-
-    @Override
-    public void onReceiveMessage(List<ChatRoomMessage> messageList) {
     }
 }

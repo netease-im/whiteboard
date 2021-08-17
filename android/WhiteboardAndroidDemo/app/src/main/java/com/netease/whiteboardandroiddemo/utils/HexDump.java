@@ -1,8 +1,5 @@
 package com.netease.whiteboardandroiddemo.utils;
 
-import java.io.IOException;
-import java.io.StringReader;
-
 public class HexDump {
 
     private static final char m_hexCodes[] = {'0', '1', '2', '3', '4', '5',
