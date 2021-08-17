@@ -1,17 +1,19 @@
 package com.netease.whiteboardandroiddemo;
 
 public class Constant {
-    /** 这里替换成你自己的AppKey */
     public static final String APP_KEY = "Your App Key";
-    public static final String TOKEN = "e10adc3949ba59abbe56e057f20f883e";
-    /** 这里替换成你自己的白板地址 */
-    public static final String LOAD_URL = "Your Load Url of Whiteboard";
-    /** 这里替换成你自己的应用服务器地址，用于注册IM*/
-    public static final String API_SERVER = "Your Api Server";
+    /**
+     * samplecode仅作为展示使用。实际开发时，请不要将appsecret放置在客户端代码中，以防泄漏。
+     * 客户端中放置appsecret是为了在客户不需要设置应用服务器时，即能够跑通白板的sample code。
+     */
+    public static final String APP_SECRET = "Your App Secret";
+    public static final String WEBVIEW_URL = "Your WebView Url of Whiteboard";
 
-    public static final String EXTRA_ROOM_ID = "extra_room_id";
-    public static final String EXTRA_ACCOUNT = "extra_account";
-    public static final String EXTRA_OWNER_ACCOUNT = "extra_owner_account";
+    public static final String KEY_APP_KEY = "app_key";
+    public static final String KEY_APP_SECRET = "app_secret";
+    public static final String KEY_UID = "uid";
+    public static final String KEY_ROOM_ID = "room_id";
+    public static final String KEY_WEBVIEW_URL = "webview_url";
 
     /** 白板刷的颜色，进入时随机选一个，第一个和第二个不能选 */
     public static final String[] BUSH_COLOR_ARRAY = new String[]{

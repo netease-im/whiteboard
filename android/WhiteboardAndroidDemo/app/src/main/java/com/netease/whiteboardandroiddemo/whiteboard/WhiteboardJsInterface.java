@@ -3,7 +3,7 @@ package com.netease.whiteboardandroiddemo.whiteboard;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
+import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
 import android.webkit.MimeTypeMap;
 import android.webkit.ValueCallback;
@@ -11,13 +11,10 @@ import android.webkit.WebView;
 
 import androidx.annotation.Nullable;
 
-import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.Observer;
-import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver;
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomKickOutEvent;
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage;
 import com.netease.whiteboardandroiddemo.Constant;
+import com.netease.whiteboardandroiddemo.utils.NELogger;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,8 +22,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
-import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -34,28 +31,6 @@ public class WhiteboardJsInterface {
     private static final String TAG = "WhiteboardJsInterface";
     private final WeakReference<WhiteboardContractView> contractReference;
     private ValueCallback<Uri[]> fileValueCallback;
-
-    private final Observer<ChatRoomKickOutEvent> kickOutObserver = new Observer<ChatRoomKickOutEvent>() {
-        @Override
-        public void onEvent(ChatRoomKickOutEvent chatRoomKickOutEvent) {
-            WhiteboardContractView contract = contractReference.get();
-            if (contract == null) {
-                return;
-            }
-            contract.onKickOut(chatRoomKickOutEvent);
-        }
-    };
-
-    private final Observer<List<ChatRoomMessage>> receiveMessageObserver = new Observer<List<ChatRoomMessage>>() {
-        @Override
-        public void onEvent(List<ChatRoomMessage> messageList) {
-            WhiteboardContractView contract = contractReference.get();
-            if (contract == null) {
-                return;
-            }
-            contract.onReceiveMessage(messageList);
-        }
-    };
 
     /** Instantiate the interface and set the context */
     public WhiteboardJsInterface(WhiteboardContractView contractView) {
@@ -70,7 +45,7 @@ public class WhiteboardJsInterface {
             String action = obj.getString("action");
             JSONObject param = obj.getJSONObject("param");
 
-            Log.i(TAG, String.format("called by js, toast=%s, obj=%s, param=%s", toast, obj, param));
+            NELogger.i(TAG, String.format("called by js, toast=%s, obj=%s, param=%s", toast, obj, param));
             switch (action) {
                 // Web页面已经准备好了
                 case "webPageLoaded":
@@ -82,7 +57,7 @@ public class WhiteboardJsInterface {
                     break;
                 // NIM登录成功
                 case "webLoginIMSucceed":
-                    Log.i(TAG, "login Nim succeed");
+                    NELogger.i(TAG, "login Nim succeed");
                     break;
                 // NIM登录失败
                 case "webLoginIMFailed":
@@ -96,6 +71,9 @@ public class WhiteboardJsInterface {
                 case "webError":
                     onLogout();
                     break;
+                case "webGetAuth":
+                    sendAuthInfo();
+                    break;
                 // Js运行时报错
                 case "webJsError":
                 default:
@@ -103,7 +81,7 @@ public class WhiteboardJsInterface {
             }
         } catch (Throwable e) {
             e.printStackTrace();
-            Log.e(TAG, "execute native function error", e);
+            NELogger.e(TAG, "execute native function error");
         }
     }
 
@@ -116,29 +94,32 @@ public class WhiteboardJsInterface {
     }
 
     private void login() throws JSONException {
-        Log.i(TAG, "login");
+        NELogger.i(TAG, "login");
+
         WhiteboardContractView contract = contractReference.get();
         if (contract == null) {
             return;
         }
+
         JSONObject jsParam = new JSONObject();
         JSONObject param = new JSONObject();
+        JSONObject toolbar = new JSONObject();
+
         jsParam.put("action", "jsLoginIMAndJoinWB");
         jsParam.put("param", param);
-        param.put("account", contract.getAccount());
-        param.put("ownerAccount", contract.getOwnerAccount());
-        //这里请传入token
-        param.put("token", Constant.TOKEN);
+        param.put("toolbar", toolbar);
+        param.put("uid", Integer.parseInt(contract.getUid()));
         param.put("channelName", contract.getChannel());
         param.put("record", true);
         param.put("debug", true);
         param.put("platform", "android");
-        param.put("appKey", Constant.APP_KEY);
+        param.put("appKey", contract.getAppKey()); // (测试服)
+
         runJs((jsParam.toString()));
     }
 
     public void logout() {
-        Log.i(TAG, "logout");
+        NELogger.i(TAG, "logout");
         WhiteboardContractView contract = contractReference.get();
         if (contract == null) {
             return;
@@ -150,7 +131,7 @@ public class WhiteboardJsInterface {
             jsParam.put("param", param);
             runJs((jsParam.toString()));
         } catch (JSONException e) {
-            Log.e(TAG, "failed to send logout to js", e);
+            NELogger.e(TAG, "failed to send logout to js");
         }
     }
 
@@ -169,10 +150,46 @@ public class WhiteboardJsInterface {
         runJs((jsParam.toString()));
     }
 
+    /**
+     * samplecode仅作为展示使用。实际开发时，请不要将appsecret放置在客户端代码中，以防泄漏。
+     * 客户端中放置appsecret是为了在客户不需要设置应用服务器时，即能够跑通白板的sample code。
+     *
+     * sample code中获取auth的流程如下：
+     * 1. webview通过webGetAuth请求auth
+     * 2. 客户端生成auth
+     * 3. 客户端通过jsSendAuth返回auth
+     *
+     * 开发者应该创建应用服务器，将该流程改为：
+     * 1. webview通过webGetAuth请求auth
+     * 2. 客户端向应用服务器请求auth
+     * 3. 应用服务器生成auth
+     * 4. 应用服务器向客户端返回auth
+     * 5. 客户端通过jsSendAuth返回auth
+     */
+    private void sendAuthInfo() throws JSONException, UnsupportedEncodingException {
+        WhiteboardContractView contract = contractReference.get();
+        if (contract == null) {
+            return;
+        }
+
+        JSONObject jsParam = new JSONObject();
+        JSONObject param = new JSONObject();
+        long timestamp = System.currentTimeMillis() / 1000;
+        String nonce = "8788";
+        String sha1Hex = DigestUtils.sha1Hex(contract.getAppSecret() + nonce + Long.toString(timestamp));
+        jsParam.put("action", "jsSendAuth");
+        jsParam.put("param", param);
+        param.put("code", 200);
+        param.put("nonce", nonce);
+        param.put("curTime", timestamp);
+        param.put("checksum", sha1Hex);
+        runJs((jsParam.toString()));
+    }
+
     private void setBrushColor() throws JSONException {
         int randomInt = new Random().nextInt(Constant.BUSH_COLOR_ARRAY.length - 2);
         String colorStr = Constant.BUSH_COLOR_ARRAY[randomInt + 2];
-        Log.i(TAG, String.format("set bush color %s with %s", colorStr, randomInt));
+        NELogger.i(TAG, String.format("set bush color %s with %s", colorStr, randomInt));
         JSONObject jsParam = new JSONObject();
         JSONObject param = new JSONObject();
         JSONArray paramArr = new JSONArray();
@@ -195,15 +212,9 @@ public class WhiteboardJsInterface {
         WebView whiteboardView = contract.getWhiteboardView();
         final String escapedParam = param.replaceAll("\"", "\\\\\"");
         whiteboardView.post(() -> {
-            Log.i("native function call js", "javascript:WebJSBridge(\"" + escapedParam + "\")");
+            NELogger.i("native function call js", "javascript:WebJSBridge(\"" + escapedParam + "\")");
             whiteboardView.loadUrl("javascript:WebJSBridge(\"" + escapedParam + "\")");
         });
-    }
-
-    public void registerObservers(boolean register) {
-        ChatRoomServiceObserver chatRoomServiceObserver = NIMClient.getService(ChatRoomServiceObserver.class);
-        chatRoomServiceObserver.observeKickOutEvent(kickOutObserver, register);
-        chatRoomServiceObserver.observeReceiveMessage(receiveMessageObserver, register);
     }
 
     public synchronized void transferFile(Uri uri) {
