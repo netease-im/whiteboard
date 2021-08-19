@@ -1,0 +1,531 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		40CE899326949C5E00C76A32 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CE899226949C5E00C76A32 /* AppDelegate.m */; };
+		40CE899C26949C5E00C76A32 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40CE899A26949C5E00C76A32 /* Main.storyboard */; };
+		40CE899E26949C6000C76A32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40CE899D26949C6000C76A32 /* Assets.xcassets */; };
+		40CE89A126949C6000C76A32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40CE899F26949C6000C76A32 /* LaunchScreen.storyboard */; };
+		40CE89A426949C6000C76A32 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CE89A326949C6000C76A32 /* main.m */; };
+		40CE89AB26953A6B00C76A32 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40CE89AA26953A6B00C76A32 /* Images.xcassets */; };
+		40CE89B426953F8A00C76A32 /* NTESWhiteBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CE89B326953F8A00C76A32 /* NTESWhiteBoardViewController.m */; };
+		40CE89BB269543DF00C76A32 /* UIImage+NTES.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CE89BA269543DF00C76A32 /* UIImage+NTES.m */; };
+		40CE89C026954D9000C76A32 /* NMCWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CE89BF26954D9000C76A32 /* NMCWebView.m */; };
+		40CE89C92695542A00C76A32 /* NMCMessageDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CE89C82695542A00C76A32 /* NMCMessageDispatcher.m */; };
+		40CE89D026957E3500C76A32 /* NTESLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CE89CF26957E3500C76A32 /* NTESLoginViewController.m */; };
+		40CE89D32695801700C76A32 /* NMCWhiteBoardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CE89D22695801700C76A32 /* NMCWhiteBoardManager.m */; };
+		40CE89D6269599CD00C76A32 /* NMCWebLoginParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CE89D5269599CD00C76A32 /* NMCWebLoginParam.m */; };
+		40CE89D92695A6B900C76A32 /* NMCJSBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 40CE89D82695A6B900C76A32 /* NMCJSBridge.js */; };
+		40CE89DF2695D89900C76A32 /* NTESHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CE89DD2695D89900C76A32 /* NTESHeaderView.m */; };
+		40CE89E22696998300C76A32 /* NTESWhiteBoardParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CE89E12696998300C76A32 /* NTESWhiteBoardParam.m */; };
+		40CE89E52696A6A000C76A32 /* NTESContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CE89E42696A6A000C76A32 /* NTESContentView.m */; };
+		5E80A2D63F2653CD377E8ABD /* libPods-WhiteBoardWebDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9153BC82B0F190DD71BC4272 /* libPods-WhiteBoardWebDemo.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		283AA1CC2C027E02C52CC471 /* Pods-WhiteBoardWebDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhiteBoardWebDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhiteBoardWebDemo/Pods-WhiteBoardWebDemo.release.xcconfig"; sourceTree = "<group>"; };
+		35CA6CBCA003D8F83AC72F81 /* Pods-WhiteBoardWebDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhiteBoardWebDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhiteBoardWebDemo/Pods-WhiteBoardWebDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		40CE898E26949C5E00C76A32 /* WhiteBoardWebDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhiteBoardWebDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		40CE899126949C5E00C76A32 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		40CE899226949C5E00C76A32 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		40CE899B26949C5E00C76A32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		40CE899D26949C6000C76A32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		40CE89A026949C6000C76A32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		40CE89A226949C6000C76A32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40CE89A326949C6000C76A32 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		40CE89AA26953A6B00C76A32 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		40CE89B226953F8A00C76A32 /* NTESWhiteBoardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NTESWhiteBoardViewController.h; sourceTree = "<group>"; };
+		40CE89B326953F8A00C76A32 /* NTESWhiteBoardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTESWhiteBoardViewController.m; sourceTree = "<group>"; };
+		40CE89B9269543DF00C76A32 /* UIImage+NTES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+NTES.h"; sourceTree = "<group>"; };
+		40CE89BA269543DF00C76A32 /* UIImage+NTES.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NTES.m"; sourceTree = "<group>"; };
+		40CE89BE26954D9000C76A32 /* NMCWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NMCWebView.h; sourceTree = "<group>"; };
+		40CE89BF26954D9000C76A32 /* NMCWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NMCWebView.m; sourceTree = "<group>"; };
+		40CE89C126954EB700C76A32 /* NMCWebViewDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMCWebViewDefine.h; sourceTree = "<group>"; };
+		40CE89C72695542A00C76A32 /* NMCMessageDispatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NMCMessageDispatcher.h; sourceTree = "<group>"; };
+		40CE89C82695542A00C76A32 /* NMCMessageDispatcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NMCMessageDispatcher.m; sourceTree = "<group>"; };
+		40CE89CA269558B700C76A32 /* NMCWhiteboardManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMCWhiteboardManagerProtocol.h; sourceTree = "<group>"; };
+		40CE89CE26957E3500C76A32 /* NTESLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NTESLoginViewController.h; sourceTree = "<group>"; };
+		40CE89CF26957E3500C76A32 /* NTESLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTESLoginViewController.m; sourceTree = "<group>"; };
+		40CE89D12695801700C76A32 /* NMCWhiteBoardManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NMCWhiteBoardManager.h; sourceTree = "<group>"; };
+		40CE89D22695801700C76A32 /* NMCWhiteBoardManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NMCWhiteBoardManager.m; sourceTree = "<group>"; };
+		40CE89D4269599CD00C76A32 /* NMCWebLoginParam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NMCWebLoginParam.h; sourceTree = "<group>"; };
+		40CE89D5269599CD00C76A32 /* NMCWebLoginParam.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NMCWebLoginParam.m; sourceTree = "<group>"; };
+		40CE89D82695A6B900C76A32 /* NMCJSBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = NMCJSBridge.js; sourceTree = "<group>"; };
+		40CE89DD2695D89900C76A32 /* NTESHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESHeaderView.m; sourceTree = "<group>"; };
+		40CE89DE2695D89900C76A32 /* NTESHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESHeaderView.h; sourceTree = "<group>"; };
+		40CE89E02696998300C76A32 /* NTESWhiteBoardParam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NTESWhiteBoardParam.h; sourceTree = "<group>"; };
+		40CE89E12696998300C76A32 /* NTESWhiteBoardParam.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTESWhiteBoardParam.m; sourceTree = "<group>"; };
+		40CE89E32696A6A000C76A32 /* NTESContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NTESContentView.h; sourceTree = "<group>"; };
+		40CE89E42696A6A000C76A32 /* NTESContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTESContentView.m; sourceTree = "<group>"; };
+		9153BC82B0F190DD71BC4272 /* libPods-WhiteBoardWebDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WhiteBoardWebDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		40CE898B26949C5E00C76A32 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E80A2D63F2653CD377E8ABD /* libPods-WhiteBoardWebDemo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		21EBA52DB01DF94F06741BD0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				35CA6CBCA003D8F83AC72F81 /* Pods-WhiteBoardWebDemo.debug.xcconfig */,
+				283AA1CC2C027E02C52CC471 /* Pods-WhiteBoardWebDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		40217D26BE0A11777EA54BAD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9153BC82B0F190DD71BC4272 /* libPods-WhiteBoardWebDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		40CE898526949C5E00C76A32 = {
+			isa = PBXGroup;
+			children = (
+				40CE89BD26954D5900C76A32 /* NMCWhiteBoard */,
+				40CE899026949C5E00C76A32 /* WhiteBoardWebDemo */,
+				40CE898F26949C5E00C76A32 /* Products */,
+				21EBA52DB01DF94F06741BD0 /* Pods */,
+				40217D26BE0A11777EA54BAD /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		40CE898F26949C5E00C76A32 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				40CE898E26949C5E00C76A32 /* WhiteBoardWebDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		40CE899026949C5E00C76A32 /* WhiteBoardWebDemo */ = {
+			isa = PBXGroup;
+			children = (
+				40CE89B626953FBA00C76A32 /* Controller */,
+				40CE89B526953FBA00C76A32 /* Model */,
+				40CE89B726953FBA00C76A32 /* View */,
+				40CE89B82695437100C76A32 /* Category */,
+				40CE899126949C5E00C76A32 /* AppDelegate.h */,
+				40CE899226949C5E00C76A32 /* AppDelegate.m */,
+				40CE899A26949C5E00C76A32 /* Main.storyboard */,
+				40CE899D26949C6000C76A32 /* Assets.xcassets */,
+				40CE89AA26953A6B00C76A32 /* Images.xcassets */,
+				40CE899F26949C6000C76A32 /* LaunchScreen.storyboard */,
+				40CE89A226949C6000C76A32 /* Info.plist */,
+				40CE89A326949C6000C76A32 /* main.m */,
+			);
+			path = WhiteBoardWebDemo;
+			sourceTree = "<group>";
+		};
+		40CE89B526953FBA00C76A32 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				40CE89E02696998300C76A32 /* NTESWhiteBoardParam.h */,
+				40CE89E12696998300C76A32 /* NTESWhiteBoardParam.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		40CE89B626953FBA00C76A32 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				40CE89CE26957E3500C76A32 /* NTESLoginViewController.h */,
+				40CE89CF26957E3500C76A32 /* NTESLoginViewController.m */,
+				40CE89B226953F8A00C76A32 /* NTESWhiteBoardViewController.h */,
+				40CE89B326953F8A00C76A32 /* NTESWhiteBoardViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		40CE89B726953FBA00C76A32 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				40CE89DE2695D89900C76A32 /* NTESHeaderView.h */,
+				40CE89DD2695D89900C76A32 /* NTESHeaderView.m */,
+				40CE89E32696A6A000C76A32 /* NTESContentView.h */,
+				40CE89E42696A6A000C76A32 /* NTESContentView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		40CE89B82695437100C76A32 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				40CE89B9269543DF00C76A32 /* UIImage+NTES.h */,
+				40CE89BA269543DF00C76A32 /* UIImage+NTES.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		40CE89BD26954D5900C76A32 /* NMCWhiteBoard */ = {
+			isa = PBXGroup;
+			children = (
+				40CE89D72695A6B900C76A32 /* Resource */,
+				40CE89CA269558B700C76A32 /* NMCWhiteboardManagerProtocol.h */,
+				40CE89C126954EB700C76A32 /* NMCWebViewDefine.h */,
+				40CE89D4269599CD00C76A32 /* NMCWebLoginParam.h */,
+				40CE89D5269599CD00C76A32 /* NMCWebLoginParam.m */,
+				40CE89D12695801700C76A32 /* NMCWhiteBoardManager.h */,
+				40CE89D22695801700C76A32 /* NMCWhiteBoardManager.m */,
+				40CE89C72695542A00C76A32 /* NMCMessageDispatcher.h */,
+				40CE89C82695542A00C76A32 /* NMCMessageDispatcher.m */,
+				40CE89BE26954D9000C76A32 /* NMCWebView.h */,
+				40CE89BF26954D9000C76A32 /* NMCWebView.m */,
+			);
+			path = NMCWhiteBoard;
+			sourceTree = "<group>";
+		};
+		40CE89D72695A6B900C76A32 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				40CE89D82695A6B900C76A32 /* NMCJSBridge.js */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		40CE898D26949C5E00C76A32 /* WhiteBoardWebDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40CE89A726949C6000C76A32 /* Build configuration list for PBXNativeTarget "WhiteBoardWebDemo" */;
+			buildPhases = (
+				DE25898A9AC9438311E2E9C7 /* [CP] Check Pods Manifest.lock */,
+				40CE898A26949C5E00C76A32 /* Sources */,
+				40CE898B26949C5E00C76A32 /* Frameworks */,
+				40CE898C26949C5E00C76A32 /* Resources */,
+				F68A70D437B9CEF491A71CED /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WhiteBoardWebDemo;
+			productName = WhiteBoardWebDemo;
+			productReference = 40CE898E26949C5E00C76A32 /* WhiteBoardWebDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		40CE898626949C5E00C76A32 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					40CE898D26949C5E00C76A32 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+				};
+			};
+			buildConfigurationList = 40CE898926949C5E00C76A32 /* Build configuration list for PBXProject "WhiteBoardWebDemo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 40CE898526949C5E00C76A32;
+			productRefGroup = 40CE898F26949C5E00C76A32 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				40CE898D26949C5E00C76A32 /* WhiteBoardWebDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		40CE898C26949C5E00C76A32 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40CE89A126949C6000C76A32 /* LaunchScreen.storyboard in Resources */,
+				40CE89AB26953A6B00C76A32 /* Images.xcassets in Resources */,
+				40CE899E26949C6000C76A32 /* Assets.xcassets in Resources */,
+				40CE89D92695A6B900C76A32 /* NMCJSBridge.js in Resources */,
+				40CE899C26949C5E00C76A32 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DE25898A9AC9438311E2E9C7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WhiteBoardWebDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F68A70D437B9CEF491A71CED /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WhiteBoardWebDemo/Pods-WhiteBoardWebDemo-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WhiteBoardWebDemo/Pods-WhiteBoardWebDemo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WhiteBoardWebDemo/Pods-WhiteBoardWebDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		40CE898A26949C5E00C76A32 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40CE89C026954D9000C76A32 /* NMCWebView.m in Sources */,
+				40CE89D32695801700C76A32 /* NMCWhiteBoardManager.m in Sources */,
+				40CE89D6269599CD00C76A32 /* NMCWebLoginParam.m in Sources */,
+				40CE89B426953F8A00C76A32 /* NTESWhiteBoardViewController.m in Sources */,
+				40CE89C92695542A00C76A32 /* NMCMessageDispatcher.m in Sources */,
+				40CE89D026957E3500C76A32 /* NTESLoginViewController.m in Sources */,
+				40CE89E22696998300C76A32 /* NTESWhiteBoardParam.m in Sources */,
+				40CE89BB269543DF00C76A32 /* UIImage+NTES.m in Sources */,
+				40CE899326949C5E00C76A32 /* AppDelegate.m in Sources */,
+				40CE89DF2695D89900C76A32 /* NTESHeaderView.m in Sources */,
+				40CE89A426949C6000C76A32 /* main.m in Sources */,
+				40CE89E52696A6A000C76A32 /* NTESContentView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		40CE899A26949C5E00C76A32 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				40CE899B26949C5E00C76A32 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		40CE899F26949C6000C76A32 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				40CE89A026949C6000C76A32 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		40CE89A526949C6000C76A32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		40CE89A626949C6000C76A32 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		40CE89A826949C6000C76A32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35CA6CBCA003D8F83AC72F81 /* Pods-WhiteBoardWebDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = WhiteBoardWebDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.viva.WhiteBoardDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		40CE89A926949C6000C76A32 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 283AA1CC2C027E02C52CC471 /* Pods-WhiteBoardWebDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = WhiteBoardWebDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netease.NIMEducationDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		40CE898926949C5E00C76A32 /* Build configuration list for PBXProject "WhiteBoardWebDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40CE89A526949C6000C76A32 /* Debug */,
+				40CE89A626949C6000C76A32 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40CE89A726949C6000C76A32 /* Build configuration list for PBXNativeTarget "WhiteBoardWebDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40CE89A826949C6000C76A32 /* Debug */,
+				40CE89A926949C6000C76A32 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 40CE898626949C5E00C76A32 /* Project object */;
+}
