@@ -86,7 +86,6 @@ Window {
             whiteboardDebug: true
             defaultDownloadPath: WhiteboardHelper.getDefaultDownloadPath()
             whiteboardUrl: NEMChatroomManager.getWhiteboardUrl()
-            whiteboardWsUrl: NEMChatroomManager.getWsUrl()
 
             function confirm(){
                 NEMChatroomManager.logoutChatroom()

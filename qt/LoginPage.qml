@@ -6,8 +6,8 @@ import QtGraphicalEffects 1.0
 
 Window {
     id: root
-    width: 620
-    height: 490
+    width: 610
+    height: 480
     visible: true
     color: 'transparent'
     flags: Qt.Window | Qt.FramelessWindowHint
@@ -57,105 +57,111 @@ Window {
 
     Column{
         anchors.centerIn: parent
-        spacing: 140
 
         Rectangle{
-            width: 510
-            height: 390
+            width: 180
+            height: 262
 
             ColumnLayout{
-                spacing: 11
-            CustomTextField{
-                id: roomField
-                placeText: "房间名称"
-                str: NEMChatroomManager.getDefaultRoom()
-            }
-            CustomTextField{
-                id: keyField
-                placeText: "appkey"
-                str: NEMChatroomManager.getDefaultAppkey()
-                strWidth: 280
-            }
-
-            CustomTextField{
-                id: wsUrlField
-                placeText: "wsUrl"
-                str: NEMChatroomManager.getDefaultWsUrl()
-                strWidth: 480
-            }
-
-            Label {
-                 text: "G2登录方式"
-                 font.pixelSize: 22
-                 font.italic: true
-                 color: "steelblue"
-                }
-            CustomTextField{
-                id: uidField
-                placeText: "Uid"
-                str: NEMChatroomManager.getDefaultUid()
-            }
-            CustomTextField{
-                id: secretField
-                placeText: "appsecret"
-                str: NEMChatroomManager.getDefaultAppsecret()
-                strWidth: 280
-            }
-            CustomTextField{
-                id: staticUrlField2
-                placeText: "G2静态资源地址"
-                str: NEMChatroomManager.getDefaultStaticUrl2()
-                strWidth: 510
-            }
-            Button{
-                id: btn2
-                text: "进入房间G2"
-                enabled: (keyField.text.length !== 0 
-                       && uidField.text.length != 0
-                       && secretField.text != 0
-                       && roomField.text != 0)
-                Layout.preferredWidth : 140
-                Layout.preferredHeight: 32
-                Layout.alignment: Qt.AlignHCenter
-                property bool isHover: false
-
-                onClicked: {
-                    NEMLoginManager.setLoginInfo(keyField.text, uidField.text, secretField.text)
-                    NEMChatroomManager.setLoginChatroomInfo(roomField.text,
-                                                            wsUrlField.text,
-                                                            uidField.text,
-                                                            secretField.text,
-                                                            staticUrlField2.text)
-                    NEMChatroomManager.setDefaultSettings(roomField.text, 
-                                                          keyField.text,
-                                                          wsUrlField.text,
-                                                          uidField.text,
-                                                          secretField.text,
-                                                          staticUrlField2.text)
+                spacing: 8
+                Image{
+                    Layout.preferredWidth: 180
+                    Layout.preferredHeight: 160
+                    source: "qrc:/image/icon_joinroom.png"
                 }
 
-                contentItem: Label {
-                    text: btn2.text
-                    font.pixelSize: 14
-                    color: "#ffffff"
-                    horizontalAlignment: Label.AlignHCenter
-                    verticalAlignment: Label.AlignVCenter
+                Column{
+                    spacing: 4
+                    Layout.preferredWidth: 180
+                    Layout.preferredHeight: 48
+
+                    TextField {
+                            id: textField
+                            width: 180
+                            height: 32
+                            font.pixelSize: 14
+                            placeholderText: "请输入房间ID号码"
+                            text: NEMChatroomManager.getDefaultRoom()
+                            leftPadding: 0
+
+                            background: Rectangle {
+                                implicitHeight: 32
+                                implicitWidth: 180
+                                color: "transparent"
+                                border.width: 0
+
+                                ToolSeparator {
+                                    width: parent.width
+                                    anchors.left: parent.left
+                                    anchors.bottom: parent.bottom
+                                    verticalPadding: 0
+                                    horizontalPadding: 0
+                                    padding: 0
+                                    leftInset: 0
+                                    rightInset: 0
+                                    topInset: 0
+                                    bottomInset: 0
+                                    orientation: Qt.Horizontal
+                                    contentItem: Rectangle {
+                                        implicitWidth: parent.width
+                                        implicitHeight: 2
+                                        color: "#d7d6e1"
+                                    }
+                                }
+
+                            }
+
+                            onTextEdited: {
+                                if(errMsg.length !== 0){
+                                    errMsg = ""
+                                }
+                            }
+                        }
+
+                        Label{
+                            visible: text.length != 0
+                            text: errMsg
+                            color: "#ff5454"
+                        }
                 }
 
-                background: Rectangle {
-                    color: btn2.enabled ? (btn2.hovered ? "#2c8dff" : "#076bf2") : "#83b5f9"
-                    radius: 2
-                }
+                Button{
+                    id: btn
+                    text: "加入房间"
+                    enabled: (textField.text.length !== 0)
+                    Layout.preferredWidth : 140
+                    Layout.preferredHeight: 32
+                    Layout.alignment: Qt.AlignHCenter
+                    property bool isHover: false
 
-                MouseArea{
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-
-                    onClicked: {
-                        btn2.clicked()
+                    onClicked:{
+                        NEMChatroomManager.setLoginChatroomInfo(textField.text)
+                        NEMChatroomManager.setDefaultSettings(textField.text)
                     }
+
+                    contentItem: Label {
+                        text: btn.text
+                        font.pixelSize: 14
+                        color: "#ffffff"
+                        horizontalAlignment: Label.AlignHCenter
+                        verticalAlignment: Label.AlignVCenter
+                    }
+
+                    background: Rectangle {
+                        color: btn.enabled ? (btn.hovered ? "#2c8dff" : "#076bf2") : "#83b5f9"
+                        radius: 2
+                    }
+
+                    MouseArea{
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+
+                        onClicked: {
+                            btn.clicked()
+                        }
+                    }
+
                 }
-            }   
             }
         }
     }

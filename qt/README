@@ -1,11 +1,2 @@
-sample code中获取auth的流程如下：
-1. webview通过webGetAuth请求auth
-2. 客户端生成auth
-3. 客户端通过jsSendAuth返回auth
-
-开发者应该创建应用服务器，将该流程改为：
-1. webview通过webGetAuth请求auth
-2. 客户端向应用服务器请求auth
-3. 应用服务器生成auth
-4. 应用服务器向客户端返回auth
-5. 客户端通过jsSendAuth返回auth
+运行环境：
+Vs2019 + Qt5.15.0

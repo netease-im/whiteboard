@@ -15,7 +15,6 @@ Item {
     property bool whiteboardRecord: false
     property bool whiteboardDebug: false
     property string defaultDownloadPath: ""
-    property string whiteboardWsUrl: ""
     property int whiteboardUid: 123
 
     signal createWriteBoardSucceed()
@@ -80,14 +79,14 @@ Item {
         }
 
         onWebGetAuth:{
-            NEMChatroomManager.setCheckSum();      
+            NEMLoginManager.setCheckSum();      
             var jsonObjAuth = {}
             var jsonParamAuth = {}
             jsonObjAuth.action = "jsSendAuth"
             jsonParamAuth.code = 200
-            jsonParamAuth.nonce = NEMChatroomManager.getNonce()
-            jsonParamAuth.checksum = NEMChatroomManager.getCheckSum()
-            jsonParamAuth.curTime = NEMChatroomManager.getCurTime()
+            jsonParamAuth.nonce = NEMLoginManager.getNonce()
+            jsonParamAuth.checksum = NEMLoginManager.getCheckSum()
+            jsonParamAuth.curTime = NEMLoginManager.getCurTime()
             jsonObjAuth.param = jsonParamAuth
             sendMessageToWeb(jsonObjAuth);
         }
@@ -136,16 +135,11 @@ Item {
         jsonParam.debug = whiteboardDebug
         jsonParam.platform = 'pc'
         jsonParam.appKey = whiteboardAppKey
-
-        if(0 != whiteboardWsUrl.length)
-        {
-            jsonParam.wsUrl = whiteboardWsUrl
-        }
-
+        
         jsonObj.param = jsonParam
 
         sendMessageToWeb(jsonObj);
-        
+            
     }
 
     function logoutWhiteboard(){

@@ -3,6 +3,7 @@
         <file>main.qml</file>
         <file>LoginPage.qml</file>
         <file>WhiteboardPage.qml</file>
+        <file>image/icon_joinroom.png</file>
         <file>CustomTextField.qml</file>
         <file>image/close.svg</file>
         <file>image/copy.svg</file>
