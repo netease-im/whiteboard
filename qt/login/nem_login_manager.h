@@ -35,9 +35,9 @@ private:
 
 private:
     QString m_account;
-    QString m_appKey;
+    QString m_appKey = "";
     qint64  m_uid;
-    QString m_appsecret;
+    QString m_appsecret = "";
     QString m_checksum;
     QString m_nonce = "123456";;
     QString m_curTime;
