@@ -17,14 +17,11 @@ Item {
     property string defaultDownloadPath: ""
     property int whiteboardUid: 123
 
-    signal createWriteBoardSucceed()
     signal createWriteBoardFailed(string errorMessage)
     signal joinWriteBoardSucceed()
     signal joinWriteBoardFailed(string errorMessage)
     signal leaveWriteBoard()
     signal writeBoardError(string errorMessage)
-    signal loginIMSucceed()
-    signal loginIMFailed(string errorMessage)
     signal downloadFinished(string path)
 
     NEMJsBridge {
@@ -33,10 +30,6 @@ Item {
 
         onWebPageLoadFinished: {
             loginWhiteboard()
-        }
-
-        onWebCreateWriteBoardSucceed: {
-            createWriteBoardSucceed()
         }
 
         onWebCreateWriteBoardFailed: {
@@ -60,14 +53,6 @@ Item {
 
         onWebError: {
             writeBoardError(errorMessage)
-        }
-
-        onWebLoginIMSucceed: {
-            loginIMSucceed()
-        }
-
-        onWebLoginIMFailed: {
-            loginIMFailed(errorMessage)
         }
 
         onWebJsError: {

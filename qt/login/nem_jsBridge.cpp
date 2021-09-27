@@ -19,16 +19,8 @@ void NEMJsBridge::NativeFunction(QString toast) {
 
     if (action == "webPageLoaded") {
         emit webPageLoadFinished();
-    } else if (action == "webLoginIMSucceed") {
-        emit webLoginIMSucceed();
-    } else if (action == "webCreateWBSucceed") {
-        emit webCreateWriteBoardSucceed();
-    } else if (action == "webJoinWBSucceed") {
+    }else if (action == "webJoinWBSucceed") {
         emit webJoinWriteBoardSucceed();
-    } else if (action == "webLoginIMFailed") {
-        int errorCode = param["code"].toInt();
-        QString errorMessage = param["msg"].toString();
-        emit webLoginIMFailed(errorCode, errorMessage);
     } else if (action == "webJoinWBFailed") {
         int errorCode = param["code"].toInt();
         QString errorMessage = param["msg"].toString();

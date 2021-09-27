@@ -105,10 +105,6 @@ Window {
                 dynamicDialog("", "加入白板失败" , confirm, cancel, "确定", "")
             }
 
-            onLoginIMFailed: {
-                dynamicDialog("", "加入白板失败", confirm, cancel, "确定", "")
-            }
-
             onDownloadFinished: {
                 WhiteboardHelper.openDir(path)
                 toast.show("图片导出中...")

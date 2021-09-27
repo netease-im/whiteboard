@@ -14,9 +14,6 @@ public:
 signals:
     void webPageLoadFinished();
 
-    void webLoginIMSucceed();
-    void webLoginIMFailed(int errorCode, const QString& errorMessage);
-
     void webJoinWriteBoardSucceed();
     void webJoinWriteBoardFailed(int errorCode, const QString& errorMessage);
 
