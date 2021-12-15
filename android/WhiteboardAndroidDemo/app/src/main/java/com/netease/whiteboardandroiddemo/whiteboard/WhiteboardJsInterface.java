@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import com.netease.whiteboardandroiddemo.Constant;
 import com.netease.whiteboardandroiddemo.utils.NELogger;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -168,7 +169,8 @@ public class WhiteboardJsInterface {
         JSONObject param = new JSONObject();
         long timestamp = System.currentTimeMillis() / 1000;
         String nonce = "8788";
-        String sha1Hex = DigestUtils.sha1Hex(contract.getAppSecret() + nonce + Long.toString(timestamp));
+        //String sha1Hex = DigestUtils.sha1Hex(contract.getAppSecret() + nonce + Long.toString(timestamp));
+        String sha1Hex = new String(Hex.encodeHex(DigestUtils.sha1(contract.getAppSecret() + nonce + Long.toString(timestamp))));
         jsParam.put("action", "jsSendAuth");
         jsParam.put("param", param);
         param.put("code", 200);
