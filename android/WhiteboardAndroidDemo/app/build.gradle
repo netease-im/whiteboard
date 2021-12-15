@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.netease.whiteboardandroiddemo"
+        applicationId "com.netease.whiteboardandroiddemoProduction"
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 3
