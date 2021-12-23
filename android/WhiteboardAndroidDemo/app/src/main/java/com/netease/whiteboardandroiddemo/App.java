@@ -10,7 +10,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        String webLogPath = getFilesDir().getAbsolutePath() + File.separator + "weblog";
+        String webLogPath = getExternalFilesDir(null).getAbsolutePath() + File.separator + "weblog";
         NELogger.init(webLogPath, 7);
     }
 }
