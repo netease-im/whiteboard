@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -91,6 +92,10 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
     private void initViews() {
         copiedToastTv = findViewById(R.id.tv_copied_toast);
         whiteboardWv = findViewById(R.id.wv_whiteboard);
+        // Android 5.0 WebView渲染硬件加速存在兼容性问题
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+            whiteboardWv.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
 
         ((TextView) findViewById(R.id.tv_room_id)).setText(String.format(getString(R.string.room_id_is_has_s), roomId));
         findViewById(R.id.ib_copy_room_id).setOnClickListener(v -> copyRoomId());
