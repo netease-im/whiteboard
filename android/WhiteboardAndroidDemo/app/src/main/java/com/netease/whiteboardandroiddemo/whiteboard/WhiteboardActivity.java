@@ -92,8 +92,8 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
     private void initViews() {
         copiedToastTv = findViewById(R.id.tv_copied_toast);
         whiteboardWv = findViewById(R.id.wv_whiteboard);
-        // Android 5.0 WebView渲染硬件加速存在兼容性问题
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+        // Android 5.x WebView渲染硬件加速存在兼容性问题
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             whiteboardWv.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
 
