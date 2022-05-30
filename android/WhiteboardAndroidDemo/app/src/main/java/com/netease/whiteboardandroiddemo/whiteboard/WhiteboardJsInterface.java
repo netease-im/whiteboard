@@ -98,6 +98,7 @@ public class WhiteboardJsInterface {
 
         JSONObject jsParam = new JSONObject();
         JSONObject param = new JSONObject();
+        JSONObject testParams = new JSONObject();
 
         jsParam.put("action", "jsJoinWB");
         jsParam.put("param", param);
@@ -107,6 +108,9 @@ public class WhiteboardJsInterface {
         param.put("debug", true);
         param.put("platform", "android");
         param.put("appKey", contract.getAppKey());
+
+        testParams.put("isDemo", true);
+        param.put("testParams", testParams);
 
         runJs((jsParam.toString()));
     }
