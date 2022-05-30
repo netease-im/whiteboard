@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.JsResult;
+import android.webkit.MimeTypeMap;
 import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -149,6 +150,7 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
         whiteboardWv.setDownloadListener((url, userAgent, contentDisposition, mimeType, contentLength) -> {
             String key = "base64,";
             int keyIndex = url.indexOf(key);
+            String ext = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
             String dataBase64Str = keyIndex < 0 ? url : url.substring(keyIndex + key.length());
             if (TextUtils.isEmpty(dataBase64Str)) {
                 Log.e(TAG, "empty file");
@@ -156,7 +158,13 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
             }
             byte[] dataOriginBytes = Base64.decode(dataBase64Str, Base64.DEFAULT);
             bgHandler.post(() -> Log.i(TAG, "dataOriginBytes=" + (dataOriginBytes == null ? "null" : HexDump.toHex(dataOriginBytes))));
-            File local = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), UUID.randomUUID().toString());
+            StringBuilder imgName = new StringBuilder();
+            imgName.append(UUID.randomUUID().toString());
+            if (!TextUtils.isEmpty(ext)) {
+                imgName.append(".");
+                imgName.append(ext);
+            }
+            File local = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), imgName.toString());
             try {
                 if (!local.exists() && !local.createNewFile()) {
                     Log.i(TAG, "path error, exist: " + local.exists());
