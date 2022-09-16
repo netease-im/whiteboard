@@ -110,6 +110,7 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
         if (settings != null) {
             settings.setJavaScriptEnabled(true);
         }
+        settings.setDomStorageEnabled(true);
 
         whiteboardWv.setWebChromeClient(new WebChromeClient() {
             @Override

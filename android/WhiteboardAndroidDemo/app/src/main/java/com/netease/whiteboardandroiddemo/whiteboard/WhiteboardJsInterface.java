@@ -54,7 +54,6 @@ public class WhiteboardJsInterface {
                     break;
                 case "webJoinWBSucceed":
                     enableDraw();
-                    setBrushColor();
                     break;
                 // 网络异常
                 case "webJoinWBFailed":
@@ -181,24 +180,6 @@ public class WhiteboardJsInterface {
         param.put("nonce", nonce);
         param.put("curTime", timestamp);
         param.put("checksum", sha1Hex);
-        runJs((jsParam.toString()));
-    }
-
-    private void setBrushColor() throws JSONException {
-        int randomInt = new Random().nextInt(Constant.BUSH_COLOR_ARRAY.length - 2);
-        String colorStr = Constant.BUSH_COLOR_ARRAY[randomInt + 2];
-        NELogger.i(TAG, String.format("set bush color %s with %s", colorStr, randomInt));
-        JSONObject jsParam = new JSONObject();
-        JSONObject param = new JSONObject();
-        JSONArray paramArr = new JSONArray();
-
-        jsParam.put("action", "jsDirectCall");
-
-        param.put("target", "drawPlugin");
-        param.put("action", "setColor");
-        paramArr.put(colorStr);
-        param.put("params", paramArr);
-        jsParam.put("param", param);
         runJs((jsParam.toString()));
     }
 
