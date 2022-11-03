@@ -4,6 +4,6 @@
 
 ```bash
 1. cd sdk
-2. 修改config.js, 在`getParams`函数中填入必要参数
+2. 修改params.js, 在`getParams`函数中填入必要参数
 3. 开启静态服务器，例如：`npx serve ./`
 ```
