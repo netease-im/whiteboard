@@ -12,7 +12,7 @@ com.netease.whiteboardandroiddemo.Constant // 存放常量，运行工程需要�
 ## 设置与运行
 
 1. 用户先联系云信团队，询问appKey
-2. 在Constant中填入自己的APP_KEY, APP_SECRET和WEBVIEW_URL
+2. 在Constant中填入自己的APP_KEY, APP_SECRET和WEBVIEW_URL。webview的下载地址为: https://doc.yunxin.163.com/whiteboard/docs/DMzNDkxMDc?platform=web。
 3. 通过Web或者PC端创建一个房间
 4. 运行工程，在房间号填写页面填写创建号的房间号
 5. 点击加入房间，然后进入白板页面并打开白板
