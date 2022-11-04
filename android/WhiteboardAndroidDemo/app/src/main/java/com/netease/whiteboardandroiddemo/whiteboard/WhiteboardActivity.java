@@ -182,6 +182,13 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
             }
         });
 
+        /**
+         * 允许白板中音视频在没有手势交互时自动播放
+         */
+        if(android.os.Build.VERSION.SDK_INT >= 17) {
+            whiteboardWv.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        }
+
         whiteboardWv.addJavascriptInterface(jsInterface, "jsBridge");
         whiteboardWv.loadUrl(webViewUrl);
     }
