@@ -1,0 +1,47 @@
+@import "./module";
+@import "./unit";
+@import "./function";
+
+body {
+  font-family: "PingFang-SC-Medium";
+  background-size: cover;
+  overflow: hidden;
+}
+
+#app, #room {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: #f6f6f6;
+}
+
+#room {
+    background: url(../../images/bg.jpeg) center center no-repeat;
+}
+
+#whiteboard {
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(245, 245, 247);
+}
+
+body, textarea, input, button, select, keygen, legend {
+    outline: 0;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #C6CCD5;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #C6CCD5;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #C6CCD5;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #C6CCD5;
+}
