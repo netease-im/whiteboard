@@ -1,0 +1,106 @@
+/*创建房间与加入房间*/
+
+.m-header {
+    position: relative;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font-size: 14px;
+    font-family: PingFangSC-Semibold;
+    .logo {
+        position: absolute;
+        left: 16px;
+        top: 14px;
+        font-family: PingFangSC-Semibold;
+        font-size: 14px;
+        color: #fff;
+        line-height: 23px;
+        height: 23px;
+        background-size:133px 23px;
+    }
+    .room-info {
+        position: absolute;
+        left: 20px;
+        top: 12px;
+        height: 26px;
+        font-family: PingFangSC-Semibold;
+        font-size: 14px;
+        color: #ffffff;
+        letter-spacing: 0.72px;
+        line-height: 26px;
+        user-select: text;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .room-info-copy {
+            width: 32px;
+            height: 32px;
+            display: inline-block;
+            background: url('../../images//duplicate.svg');
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    .opt {
+        position: absolute;
+        right: 0;
+        top: 11px;
+        height: 28px;
+        line-height: 28px;
+
+        .opt-inner {
+            margin-left: 24px;
+            display: inline-block;
+            border-left: 1px rgba(255,255,255,0.31) solid;
+            padding: 0 16px;
+            text-align: center;
+            cursor: pointer;
+        }
+    }
+}
+
+.m-home {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 600px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+    background-color: white;
+
+    .part {
+        position: absolute;
+        overflow: hidden;
+        width: 320px;
+        height: 400px;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+    }
+    .icon {
+        display: inline-block;
+        margin-top: 70px;
+        width: 182px;
+        height: 160px;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    .icon-joinroom {
+        box-sizing: content-box;
+        padding-left: 68px;
+        padding-right: 69px;
+        background-image: url(../../images/joinroom.png);
+        background-size: 136px 85px;
+    }
+    .item {
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+    .item-1 {}
+    .item-2 {
+        margin-top: 0;
+    }
+}

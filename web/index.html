@@ -1,40 +1,22 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>互动白板</title><style media="screen">html,
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      background: none !important;
-    }
-  
-    canvas {
-      /* image-rendering: optimizeSpeed; */
-      image-rendering: pixelated;
-      image-rendering: -moz-crisp-edges;
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: optimize-contrast;
-      -ms-interpolation-mode: nearest-neighbor;
-    }
-  
-    #whiteboard {
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 100;
-    }
-  </style>
-  </head>
-  
-  <body>
-      <div id="whiteboard"></div>
-      <script src="./sdk/WhiteBoardSDK_v3.3.0.js"></script>
-      <script src="./sdk/ToolCollection_v3.3.0.js"></script>
-      <!-- sha1算法，用于在客户端生成auth。实际开发时，不需要引入下面的脚本，auth应该在服务器生成 -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha1/0.6.0/sha1.js"></script>
-      <script src="./params.js"></script>
-      <script src="./index.js"></script>
+<!doctype html>
+<html lang="en">
 
-  </body></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>互动白板Web Demo</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <!-- 实际开发时，请在https://doc.yunxin.163.com/whiteboard/docs/DMzNDkxMDc?platform=web 下载SDK地址，并部署在您的静态服务器上。
+        下面提供的SDK版本会随着白板发布新版本升级，且该地址不保证永远可以访问
+     -->
+    <script src="https://app.yunxin.163.com/webdemo/whiteboard/sdk/WhiteBoardSDK.js"></script>
+    <script src="https://app.yunxin.163.com/webdemo/whiteboard/sdk/ToolCollection.js"></script>
+    <script src="https://app.yunxin.163.com/webdemo/whiteboard/sdk/pptRenderer.js"></script>
+</body>
+
+</html>
