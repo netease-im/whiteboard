@@ -1,13 +1,17 @@
 package com.netease.whiteboardandroiddemo;
 
 public class Constant {
-    public static final String APP_KEY = "Your App Key";
+    public static final String APP_KEY = "caee83f25bef456b13b4e9f54c8da4c8";
     /**
      * samplecode仅作为展示使用。实际开发时，请不要将appsecret放置在客户端代码中，以防泄漏。
      * 客户端中放置appsecret是为了在客户不需要设置应用服务器时，即能够跑通白板的sample code。
      */
-    public static final String APP_SECRET = "Your App Secret";
-    public static final String WEBVIEW_URL = "Your WebView Url of Whiteboard";
+    public static final String APP_SECRET = "c45c1fa7999e";
+    /**
+     * 下面的WEBVIEW_URL始终指向最新的SDK版本。
+     * 为了保证您线上的应用不会由于版本升级失效，请到该地址：https://doc.yunxin.163.com/whiteboard/docs/DMzNDkxMDc?platform=web ，下载最新的webview静态资源，并通过您的静态服务器部署。
+     */
+    public static final String WEBVIEW_URL = "https://app.yunxin.163.com/webdemo/whiteboard/webview.html";
 
     public static final String KEY_APP_KEY = "app_key";
     public static final String KEY_APP_SECRET = "app_secret";
