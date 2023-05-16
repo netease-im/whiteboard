@@ -1,0 +1,184 @@
+/*组件*/
+.u-input {
+  box-sizing: content-box;
+  padding: 8px 0;
+  width: 180px;
+  font-size: 14px;
+  color: #313c4c;
+  line-height: 14px;
+  height: 14px;
+  border: 0;
+  border-bottom: 1px #b7b4c9 solid;
+  letter-spacing: 0.78px;
+}
+.u-btn {
+  font-size: 14px;
+  width: 90px;
+  text-align: center;
+  background-color: #076bf2;
+  color: #fff;
+  border: none;
+  letter-spacing: 0.84px;
+  border-radius: 2px;
+
+  height: 32px;
+  line-height: 32px;
+  border-radius: 2px;
+  margin-left: 12px;
+
+  &.u-btn-smaller {
+    width: 60px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 12px;
+    border-radius: 13px;
+  }
+
+  &.u-btn-longer {
+    width: 140px;
+  }
+
+  &.u-btn-none {
+    font-size: 12px;
+    background-color: transparent;
+    color: #c6ccd5;
+    border: 0;
+    box-shadow: none;
+  }
+  &.u-btn-cancle {
+    background-color: #e3e6ec;
+    color: #313c4c;
+    box-shadow: none;
+  }
+  &.u-btn-disable {
+    background: #c6ccd5;
+    box-shadow: 0 8px 15px -8px rgba(255, 255, 255, 0.6);
+  }
+  &[disabled] {
+    opacity: 0.5;
+  }
+
+  &.u-btn-active:not([disabled]),
+  &:active:not([disabled]) {
+    background-color: #44a0f4;
+  }
+  &.u-btn-hover:not([disabled]),
+  &:hover:not([disabled]) {
+    background-color: #2c8dff;
+  }
+
+  &.u-btn-none:hover,
+  &.u-btn-none:active {
+    background-color: transparent;
+  }
+
+  &.u-btn-cancle:hover,
+  &.u-btn-cancle:active {
+    background-color: #e3e6ec;
+  }
+
+  &.u-btn-stop {
+    background-color: #ff5454;
+  }
+  &.u-btn-stop:active:not([disabled]) {
+    background-color: #ff7373;
+  }
+  &.u-btn-stop:hover:not([disabled]) {
+    background-color: #ff6868;
+  }
+}
+
+.u-loading {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  animation: loading 1s steps(12) infinite;
+  background: transparent url("../../images/loading.svg") no-repeat;
+  background-size: 100%;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+/*弹窗*/
+.u-alert-wrapper {
+  z-index: 9999;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  .u-alert {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 32px 32px 24px 32px;
+    width: 416px;
+    background: #ffffff;
+    border-radius: 2px;
+    background: #FFFFFF;
+    box-shadow: 0px 3px 9px 0px #000000;
+    &.u-alert-1 {
+      width: 480px;
+      margin-left: -240px;
+    }
+  }
+  .alert-header {
+    position: relative;
+    height: 24px;
+    .title {
+      margin-left: 16px;
+      margin-top: 10px;
+      font-family: PingFang-SC-Regular;
+      font-size: 14px;
+      color: #076bf2;
+      line-height: 14px;
+    }
+    .close {
+      position: absolute;
+      right: 11px;
+      top: 0;
+      width: 8px;
+      height: 8px;
+      cursor: pointer;
+      background: url(../../images/close.svg) center center no-repeat;
+      background-size: 8px 8px;
+    }
+  }
+  .alert-body {
+    margin-bottom: 32px;
+  }
+  .alert-footer {
+    height: 32px;
+    text-align: right;
+  }
+}
+
+/*弹窗内容块：退出房间、退出/结束互动、关闭房间被踢*/
+.u-logoutim {
+  font-family: PingFang-SC-Regular;
+  font-size: 14px;
+  color: #313c4c;
+  line-height: 20px;
+}
+
+.u-icon-tip {
+  position: relative;
+  top: 5px;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  margin-right: 8px;
+  background: url(../../images/icon-tip.svg) center center no-repeat;
+  background-size: 22px 22px;
+}

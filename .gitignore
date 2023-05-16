@@ -3,6 +3,7 @@
 *local*
 web/node_modules
 web/package-lock.json
+.idea
 
 /android/WhiteboardAndroidDemo/*.iml
 /android/WhiteboardAndroidDemo/.gradle

@@ -7,5 +7,9 @@
   - 支持文档上传共享转码
 
 ## 示例集成
-  - [SDK接入说明](https://dev.yunxin.163.com/docs/product/%E4%BA%92%E5%8A%A8%E7%99%BD%E6%9D%BF3.0/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/%E9%9B%86%E6%88%90SDK)
-  - [WebView接入说明](https://dev.yunxin.163.com/docs/product/%E4%BA%92%E5%8A%A8%E7%99%BD%E6%9D%BF3.0/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/%E9%9B%86%E6%88%90Webview)
+  - [SDK接入说明](https://doc.yunxin.163.com/whiteboard/docs/home-page?platform=web)
+  - [WebView接入说明](https://doc.yunxin.163.com/whiteboard/docs/TA0Njk3ODk?platform=web)
+
+**推荐客户得京东卡，首次推荐成单得3000元京东卡，连续推荐4500元/单，上不封顶。点击参与https://yunxin.163.com/promotion/recommend**
+
+![main](https://github.com/netease-kit/NIM_iOS_UIKit/blob/master/activity-1.png)

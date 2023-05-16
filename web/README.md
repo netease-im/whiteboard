@@ -1,42 +1,37 @@
-本开源项目主要展示互动白板 Web 端如何快速集成互动白板 SDK 和 WebView 接入方案，帮助开发者实现互动白板能力。
+## 云信互动白板Web Demo
 
-## 目录结构
+该项目使用`webpack`打包，使用`react`作为前端框架。该项目简单展示了如何启动一个白板应用。
 
-```md
--- webview                  //webview接入示例   
-    -- webview              //白板webview页面。用户应该将其部署到自己的静态服务器中   
-    -- index.html           //webview sample code入口文件
+## 项目目录结构
+- src/assets: 图标资源以及css样式文件
+- src/component: 公共组件
+- src/pages: 登陆页面以及白板页面
+- src/util: 帮助函数
 
--- sdk                      //sdk接入示例
-    -- sdk                  //sdk文件目录
-    -- index.html           //sdk sample code入口文件
+## 运行源代码
+1. 下载本仓库后，在web文件夹下打开控制台
+2. 运行`npm install`安装依赖
+3. 运行`npm run start`在本地启动静态服务
+
+## 注意
+1. src/env.ts中的密钥仅用于sample code跑通。请开发者及时替换为自己应用的appKey和appSecret。Sample Code中默认的参数会有一些限制。
+2. src/env.ts中的presetId用于提供音视频上传后的转码功能。该能力可以增加音视频文件在各客户端的兼容性。请参考：https://doc.yunxin.163.com/whiteboard/docs/jU0OTEzODY?platform=web ，为您的应用申请转码模板。如果您的应用不需要在白板中上传并转码音视频，则需要提供该参数
+3. index.html中的SDK脚本链接始终指向最新的SDK版本。为了保证您线上的应用不会由于版本升级失效，请按照文件中注释代码，下载最新的SDK脚本，并通过您的静态服务器部署
+
+
+## 鉴权
+本应用将鉴权过程放到了客户端。鉴权的函数在src/util/getAuthInfo.ts文件中实现。为了您的应用安全，请不要在客户端存储您的密钥。您可以改造src/util/getAuthInfo.ts函数，使其通过https请求，向您的业务服务器请求鉴权参数完成鉴权。下面是示例代码:
+```js
+function getAuthInfo(appsecret: string) {
+    /**
+     * getAuthInfo返回nonce, checksum和curtime
+     * 
+     * Nonce: 128位以下的随机字符串
+     * curTime: 秒级时间戳
+     * checksum: sha1(appsecret + Nonce + curTime)
+     */
+    return fetch('https://www.yourServerAddress.com/getAuthInfo')
+        .then(res => res.json())
+}
+
 ```
-
-## webview示例
-
-```bash
-1. cd webview
-2. 修改config.js, 在`getParams`函数中填入必要参数
-3. 开启静态服务器，例如：`npx serve ./`
-```
-
-## sdk接入示例
-
-sdk接入适合于需要定制化部分功能，UI的用户。sdk接入时，需要用户自行处理文档转码相关逻辑
-
-```bash
-1. cd sdk
-2. 修改config.js, 在`getParams`函数中填入必要参数
-3. 开启静态服务器，例如：`npx serve ./`
-```
-
-## IM账号与参数设置
-
-1. 用户先联系云信团队，询问appKey，然后申请若干个im账号进行测试
-2. 测试时，先将account和ownerAccount设置为同一个。这样首次登录时，会根据channelName创建房间
-3. 保持上一个设置打开的网页不动。修改account，打开另一个tab
-4. 第一个tab和第二个tab之间应该能够互通。第一个tab是教师端的白板。第二个tab是学生端的白板。
-
-## 日志
-
-用户开发阶段可以将SDK替换为带log后缀的文件，带log后缀的脚本会输出日志，方便调试。

@@ -1,0 +1,10 @@
+prefix=D:/code/lx/whiteb/glog/cmake_install2019
+exec_prefix=D:/code/lx/whiteb/glog/cmake_install2019/bin
+libdir=D:/code/lx/whiteb/glog/cmake_install2019/lib
+includedir=D:/code/lx/whiteb/glog/cmake_install2019/include
+
+Name: libglog
+Description: Google Log (glog) C++ logging framework
+Version: 0.5.0
+Libs: -L${libdir} -lglog
+Cflags: -I${includedir}
