@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import env from '../../env'
-import getAuthInfo from '../../util/getAuthInfo'
 import Alert from '../../component/alert'
 import { NavigateFunction, useNavigate, useParams } from "react-router-dom"
 
@@ -36,7 +35,13 @@ export default function Room(props) {
       container: document.getElementById('whiteboard'),
       platform: 'web',
       record: true,
-      getAuthInfo: () => { return getAuthInfo(env.appSecret) }
+      getAuthInfo: () => { return env.getAuthInfo(env.appKey, roomId, uid) },
+      getAntiLeechInfo: (prop, url: string) => { return env.getAntiLeechInfo(prop, url, env.appKey)},
+      drawPluginParams: {
+        appConfig: {
+          nosAntiLeech: true
+        }
+      }
     })
 
     setWhiteBoardSDK(whiteboardSDK)
@@ -46,7 +51,7 @@ export default function Room(props) {
       ondisconnected: () => history('/'),
       channel: roomId as string,
       container: document.getElementById('whiteboard') as HTMLDivElement,
-      presetId: env.presetId
+      presetId: env.presetId as unknown as number
     })
   }, [])
 
@@ -153,7 +158,6 @@ function joinRoom(opt: {
   history: NavigateFunction
 }) {
   const {whiteboardSDK, channel, ondisconnected, presetId, container, history} = opt
-  debugger
     whiteboardSDK.joinRoom({
       channel: channel,
       createRoom: true
