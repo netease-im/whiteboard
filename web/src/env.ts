@@ -20,10 +20,14 @@ function getAuthInfo(appkey, roomId, uid) {
             return res.json()
         })
         .then(res => {
-            return {
-                nonce: res.data.wbNonce,
-                checksum: res.data.wbCheckSum,
-                curTime: res.data.wbCurtime
+            if (res.code === 200) {
+                return {
+                    nonce: res.data.wbNonce,
+                    checksum: res.data.wbCheckSum,
+                    curTime: res.data.wbCurtime
+                }
+            } else {
+                throw res
             }
         })
         .catch(err => {
@@ -53,8 +57,12 @@ function getAntiLeechInfo(prop, url, appkey) {
             return res.json()
         })
         .then(res => {
-            return {
-                url: `${url}?wsSecret=${res.data.wsSecret}&wsTime=${wsTime}`
+            if (res.code === 200) {
+                return {
+                    url: `${url}?wsSecret=${res.data.wsSecret}&wsTime=${wsTime}`
+                }
+            } else {
+                throw res
             }
         })
         .catch(err => {
