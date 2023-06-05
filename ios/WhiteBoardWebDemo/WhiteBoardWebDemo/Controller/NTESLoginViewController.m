@@ -8,12 +8,18 @@
 #import "NTESLoginViewController.h"
 #import "NTESWhiteBoardViewController.h"
 #import "NTESContentView.h"
+#import "WhiteBoardConfig.h"
 #import "UIImage+NTES.h"
 
 #import <Masonry/Masonry.h>
 #import <Toast/UIView+Toast.h>
 
-static NSString * const kWhiteBoardWebViewUrl = @"https://app.yunxin.163.com/webdemo/whiteboard/stable/3.3.0/webview_vconsole.html";
+//    sample code 中获取 auth 的流程如下：
+//    1. webview 通过 webGetAuth 请求 auth
+//    2. 客户端请求自己的服务获取 auth
+//    3. 客户端通过 jsSendAuth 返回 auth
+
+static NSString * const kWhiteBoardWebViewUrl = @"https://app.yunxin.163.com/webdemo/whiteboard/webview.html";
 
 @interface NTESLoginViewController ()
 
@@ -23,8 +29,6 @@ static NSString * const kWhiteBoardWebViewUrl = @"https://app.yunxin.163.com/web
 @property (nonatomic, strong) NTESContentView *channelNameView;
 @property (nonatomic, strong) UIButton *joinButton;
 
-@property (nonatomic, copy) NSString *appKey;
-@property (nonatomic, copy) NSString *appSecret;
 @property (nonatomic, assign) NSUInteger uid;
 
 @property (nonatomic, strong) NSURLSessionDataTask *dataTask;
@@ -121,23 +125,6 @@ static NSString * const kWhiteBoardWebViewUrl = @"https://app.yunxin.163.com/web
 }
 
 - (void)fillUpDefaultValue {
-    //    sample code 仅作为展示使用。实际开发时，请不要将 app secret 放置在客户端代码中，以防泄漏。
-    //    sample code 中放置 app secret 是为了开发者在没有设置应用服务器的情况下，即能够跑通白板的流程。
-    //
-    //    sample code 中获取 auth 的流程如下：
-    //    1. webview 通过 webGetAuth 请求 auth
-    //    2. 客户端生成 auth
-    //    3. 客户端通过 jsSendAuth 返回 auth
-    //
-    //    开发者应该创建应用服务器，将该流程改为：
-    //    1. webview 通过 webGetAuth 请求 auth
-    //    2. 客户端向应用服务器请求 auth
-    //    3. 应用服务器生成 auth
-    //    4. 应用服务器向客户端返回 auth
-    //    5. 客户端通过 jsSendAuth 返回 auth
-    
-    _appKey = <#请填写appKey#>;
-    _appSecret = <#请填写appSecret#>;
     _uid = arc4random() % RAND_MAX;
     
     [self.channelNameView refreshWithTitle:@"房间号" content:@""];
@@ -163,9 +150,7 @@ static NSString * const kWhiteBoardWebViewUrl = @"https://app.yunxin.163.com/web
 
 - (void)joinRoomAction:(id)sender {
     NSString *channelName = [_channelNameView getContent];
-    if ((channelName.length == 0) ||
-        (_appKey.length == 0) ||
-        (_appSecret.length == 0)) {
+    if (channelName.length == 0) {
         [self.view makeToast:@"参数不能为空" duration:1.0 position:CSToastPositionCenter];
         
         return;
@@ -173,8 +158,7 @@ static NSString * const kWhiteBoardWebViewUrl = @"https://app.yunxin.163.com/web
     
     NTESWhiteBoardParam *param = [[NTESWhiteBoardParam alloc] init];
     param.channelName = channelName;
-    param.appKey = _appKey;
-    param.appSecret = _appSecret;
+    param.appKey = kAppKey;
     param.uid = _uid;
     param.webViewUrl = kWhiteBoardWebViewUrl;
     
@@ -221,7 +205,6 @@ static NSString * const kWhiteBoardWebViewUrl = @"https://app.yunxin.163.com/web
         _joinButton = [[UIButton alloc] initWithFrame:CGRectZero];
         _joinButton.layer.cornerRadius = 5;
         _joinButton.layer.masksToBounds = YES;
-//        [_joinButton setTitle:@"加入房间" forState:UIControlStateNormal];
         [_joinButton setTitle:@"加入房间" forState:UIControlStateNormal];
         [_joinButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_joinButton setBackgroundImage:[UIImage imageWithColor:buttonColor] forState:UIControlStateNormal];

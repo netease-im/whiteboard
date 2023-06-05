@@ -115,6 +115,10 @@ static DDLogLevel ddLogLevel = DDLogLevelInfo;
         if (_delegate && [_delegate respondsToSelector:@selector(onWebGetAuth)]) {
             [_delegate onWebGetAuth];
         }
+    } else if ([action isEqualToString:NMCMethodActionWebGetAntiLeechInfo]) {
+        if (_delegate && [_delegate respondsToSelector:@selector(onWebGetAntiLeechInfoWithParams:)]) {
+            [_delegate onWebGetAntiLeechInfoWithParams:param];
+        }
     }
 }
 

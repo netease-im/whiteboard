@@ -25,6 +25,9 @@
 		40CE89E22696998300C76A32 /* NTESWhiteBoardParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CE89E12696998300C76A32 /* NTESWhiteBoardParam.m */; };
 		40CE89E52696A6A000C76A32 /* NTESContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CE89E42696A6A000C76A32 /* NTESContentView.m */; };
 		5E80A2D63F2653CD377E8ABD /* libPods-WhiteBoardWebDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9153BC82B0F190DD71BC4272 /* libPods-WhiteBoardWebDemo.a */; };
+		6AA07B002A2DE3600078B151 /* NMCWhiteBoardRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA07AFE2A2DE3600078B151 /* NMCWhiteBoardRequester.m */; };
+		6AA07B052A2DF4430078B151 /* NSDictionary+NERtc.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA07B032A2DF4430078B151 /* NSDictionary+NERtc.m */; };
+		6AA07B062A2DF4430078B151 /* NSDictionary+NERtcJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA07B042A2DF4430078B151 /* NSDictionary+NERtcJson.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +65,13 @@
 		40CE89E12696998300C76A32 /* NTESWhiteBoardParam.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTESWhiteBoardParam.m; sourceTree = "<group>"; };
 		40CE89E32696A6A000C76A32 /* NTESContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NTESContentView.h; sourceTree = "<group>"; };
 		40CE89E42696A6A000C76A32 /* NTESContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTESContentView.m; sourceTree = "<group>"; };
+		6AA07AFE2A2DE3600078B151 /* NMCWhiteBoardRequester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMCWhiteBoardRequester.m; sourceTree = "<group>"; };
+		6AA07AFF2A2DE3600078B151 /* NMCWhiteBoardRequester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMCWhiteBoardRequester.h; sourceTree = "<group>"; };
+		6AA07B012A2DF4430078B151 /* NSDictionary+NERtcJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NERtcJson.h"; sourceTree = "<group>"; };
+		6AA07B022A2DF4430078B151 /* NSDictionary+NERtc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NERtc.h"; sourceTree = "<group>"; };
+		6AA07B032A2DF4430078B151 /* NSDictionary+NERtc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NERtc.m"; sourceTree = "<group>"; };
+		6AA07B042A2DF4430078B151 /* NSDictionary+NERtcJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NERtcJson.m"; sourceTree = "<group>"; };
+		6AA07B072A2DF75C0078B151 /* WhiteBoardConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhiteBoardConfig.h; sourceTree = "<group>"; };
 		9153BC82B0F190DD71BC4272 /* libPods-WhiteBoardWebDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WhiteBoardWebDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -120,6 +130,7 @@
 				40CE89B526953FBA00C76A32 /* Model */,
 				40CE89B726953FBA00C76A32 /* View */,
 				40CE89B82695437100C76A32 /* Category */,
+				6AA07B072A2DF75C0078B151 /* WhiteBoardConfig.h */,
 				40CE899126949C5E00C76A32 /* AppDelegate.h */,
 				40CE899226949C5E00C76A32 /* AppDelegate.m */,
 				40CE899A26949C5E00C76A32 /* Main.storyboard */,
@@ -168,6 +179,10 @@
 			children = (
 				40CE89B9269543DF00C76A32 /* UIImage+NTES.h */,
 				40CE89BA269543DF00C76A32 /* UIImage+NTES.m */,
+				6AA07B022A2DF4430078B151 /* NSDictionary+NERtc.h */,
+				6AA07B032A2DF4430078B151 /* NSDictionary+NERtc.m */,
+				6AA07B012A2DF4430078B151 /* NSDictionary+NERtcJson.h */,
+				6AA07B042A2DF4430078B151 /* NSDictionary+NERtcJson.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -186,6 +201,8 @@
 				40CE89C82695542A00C76A32 /* NMCMessageDispatcher.m */,
 				40CE89BE26954D9000C76A32 /* NMCWebView.h */,
 				40CE89BF26954D9000C76A32 /* NMCWebView.m */,
+				6AA07AFF2A2DE3600078B151 /* NMCWhiteBoardRequester.h */,
+				6AA07AFE2A2DE3600078B151 /* NMCWhiteBoardRequester.m */,
 			);
 			path = NMCWhiteBoard;
 			sourceTree = "<group>";
@@ -312,7 +329,10 @@
 				40CE89C026954D9000C76A32 /* NMCWebView.m in Sources */,
 				40CE89D32695801700C76A32 /* NMCWhiteBoardManager.m in Sources */,
 				40CE89D6269599CD00C76A32 /* NMCWebLoginParam.m in Sources */,
+				6AA07B002A2DE3600078B151 /* NMCWhiteBoardRequester.m in Sources */,
+				6AA07B062A2DF4430078B151 /* NSDictionary+NERtcJson.m in Sources */,
 				40CE89B426953F8A00C76A32 /* NTESWhiteBoardViewController.m in Sources */,
+				6AA07B052A2DF4430078B151 /* NSDictionary+NERtc.m in Sources */,
 				40CE89C92695542A00C76A32 /* NMCMessageDispatcher.m in Sources */,
 				40CE89D026957E3500C76A32 /* NTESLoginViewController.m in Sources */,
 				40CE89E22696998300C76A32 /* NTESWhiteBoardParam.m in Sources */,

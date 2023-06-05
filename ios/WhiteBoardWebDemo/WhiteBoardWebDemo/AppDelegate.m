@@ -7,6 +7,7 @@
 
 #import "AppDelegate.h"
 #import "NTESLoginViewController.h"
+#import "WhiteBoardConfig.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +17,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    NSAssert((![kAppKey isEqualToString:@"<#请填写AppKey#>"] &&
+              ![kServerDomain isEqualToString:@"<#请填写服务器域名#>"]),
+             @"请在WhiteBoardConfig.h中填入您的AppKey和服务器域名之后，再运行Demo");
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];

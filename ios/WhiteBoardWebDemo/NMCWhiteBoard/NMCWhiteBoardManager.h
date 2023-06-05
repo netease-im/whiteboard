@@ -34,8 +34,26 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)callWebEnableDraw:(BOOL)enable;
 
 /// 给web发送鉴权信息
-/// @param appSecret appSecret
-- (void)callWebSendAuthWithAppSecret:(NSString *)appSecret;
+/// @param appKey appKey
+/// @param channelName channelName
+/// @param userId userId
+- (void)callWebSendAuthWithAppKey:(NSString*)appKey
+                      channelName:(NSString*)channelName
+                           userId:(NSUInteger)userId;
+
+/// 给web发送防盗链信息
+/// @param appKey appKey
+/// @param bucketName bucketName
+/// @param objectKey objectKey
+/// @param url url
+/// @param seqId seqId
+/// @param timeStamp timeStamp
+- (void)callWebSendAntiLeechInfoWithAppKey:(NSString*)appKey
+                                bucketName:(NSString*)bucketName
+                                 objectKey:(NSString*)objectKey
+                                       url:(NSString*)url
+                                     seqId:(NSInteger)seqId
+                                 timeStamp:(NSString*)timeStamp;
 
 @end
 

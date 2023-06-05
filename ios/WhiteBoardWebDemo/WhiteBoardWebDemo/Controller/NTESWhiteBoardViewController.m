@@ -8,6 +8,7 @@
 #import "NTESWhiteBoardViewController.h"
 #import "NTESHeaderView.h"
 #import "NMCWhiteBoardManager.h"
+#import "NSDictionary+NERtc.h"
 
 #import <Photos/Photos.h>
 #import <WebKit/WebKit.h>
@@ -162,7 +163,6 @@ alpha:alphaValue]
     NMCWebLoginParam *loginParam = [[NMCWebLoginParam alloc] init];
     loginParam.channelName = param.channelName;
     loginParam.appKey = param.appKey;
-    loginParam.appSecret = param.appSecret;
     loginParam.uid = param.uid;
     loginParam.record = YES;
     loginParam.debug = YES;
@@ -236,7 +236,20 @@ alpha:alphaValue]
 - (void)onWebGetAuth {
     NSLog(@"[demo] ===> onWebGetAuth");
     
-    [[NMCWhiteBoardManager sharedManager] callWebSendAuthWithAppSecret:_whiteBoardParam.appSecret];
+    [[NMCWhiteBoardManager sharedManager] callWebSendAuthWithAppKey:self.whiteBoardParam.appKey channelName:self.whiteBoardParam.channelName userId:self.whiteBoardParam.uid];
+}
+
+- (void)onWebGetAntiLeechInfoWithParams:(NSDictionary *)params {
+    NSLog(@"[demo] ===> onWebGetAntiLeechInfo");
+    
+    NSDictionary* prop = [params objectForKey:@"prop"];
+    NSString* bucketName = [prop nertc_jsonString:@"bucket"];
+    NSString* objectKey = [prop nertc_jsonString:@"object"];
+    NSInteger seqId = [params nertc_jsonInteger:@"seqId"];
+    NSString* url = [params nertc_jsonString:@"url"];
+    NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
+    NSString* timeStamp = [NSString stringWithFormat:@"%llu", @(currentTime).unsignedLongLongValue];
+    [[NMCWhiteBoardManager sharedManager] callWebSendAntiLeechInfoWithAppKey:self.whiteBoardParam.appKey bucketName:bucketName objectKey:objectKey url:url seqId:seqId timeStamp:timeStamp];
 }
 
 #pragma mark - NMCWhiteboardManagerWKDelegate

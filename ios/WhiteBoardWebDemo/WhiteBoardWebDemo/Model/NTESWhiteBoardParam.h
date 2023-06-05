@@ -15,9 +15,6 @@
 /// app key
 @property (nonatomic, copy) NSString *appKey;
 
-/// app secret
-@property (nonatomic, copy) NSString *appSecret;
-
 /// uid
 @property (nonatomic, assign) NSUInteger uid;
 

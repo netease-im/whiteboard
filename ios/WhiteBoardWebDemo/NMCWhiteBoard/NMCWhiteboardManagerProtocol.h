@@ -69,6 +69,11 @@
  */
 - (void)onWebGetAuth;
 
+/**
+ web需要防盗链信息
+ */
+- (void)onWebGetAntiLeechInfoWithParams:(NSDictionary*)params;
+
 @end
 
 @protocol NMCWhiteboardManagerWKDelegate <NSObject>

@@ -23,6 +23,8 @@
 #define NMCMethodActionWebLogout @"jsLeaveWB"
 //发送鉴权信息
 #define NMCMethodActionSendAuth @"jsSendAuth"
+//发送防盗链信息
+#define NMCMethodActionSendAntiLeechInfo @"jsSendAntiLeechInfo"
 
 //设置JS调用命令
 #define NMCMethodActionJSDirectCall @"jsDirectCall"
@@ -51,5 +53,7 @@
 
 //web需要鉴权信息
 #define NMCMethodActionWebGetAuth @"webGetAuth"
+//web需要防盗链信息
+#define NMCMethodActionWebGetAntiLeechInfo @"webGetAntiLeechInfo"
 
 #endif /* NMCWebViewDefine_h */

@@ -9,6 +9,7 @@
 #import "NMCWebViewDefine.h"
 #import "NMCWebView.h"
 #import "NMCMessageDispatcher.h"
+#import "NMCWhiteBoardRequester.h"
 
 #import <CommonCrypto/CommonCrypto.h>
 
@@ -76,6 +77,9 @@
     [loginParam setObject:@(param.debug) forKey:@"debug"];
     [loginParam setObject:@"ios" forKey:@"platform"];
     [loginParam setObject:@{} forKey:@"toolbar"];
+    NSDictionary* appConfig = @{@"nosAntiLeech" : @YES};
+    NSDictionary* drawPluginPrams = @{@"appConfig" : appConfig};
+    [loginParam setObject:drawPluginPrams forKey:@"drawPluginParams"];
     
     [[NMCMessageDispatcher sharedDispatcher] nativeCallWebWithWebView:_webView action:NMCMethodActionWebLogin param:loginParam];
 }
@@ -89,31 +93,41 @@
     [[NMCMessageDispatcher sharedDispatcher] nativeCallWebWithWebView:_webView action:NMCMethodActionJSDirectCall param:targetParam];
 }
 
-- (void)callWebSendAuthWithAppSecret:(NSString *)appSecret {
-    NSMutableDictionary *targetParam = [NSMutableDictionary dictionary];
-    
-//    // 示例
-//    NSString *nonce = @"670931.0681341566";
-//    NSString *timeString = @"1624416784";
-//    NSString *checkSum = @"09a913753e2f16216d40272575af1925c525df81";
-    
-    NSString *nonce = @"8788";
-    
-    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0];
-    NSTimeInterval timeStamp = [date timeIntervalSince1970];
-    NSString *timeString = [NSString stringWithFormat:@"%0.f", timeStamp];
-    
-    NSMutableString *inputString = [NSMutableString stringWithString:appSecret];
-    [inputString appendString:nonce];
-    [inputString appendString:timeString];
-    NSString *checkSum = [self generateSha1HexStringWithInputString:inputString];
-    
-    [targetParam setObject:@(200) forKey:@"code"];
-    [targetParam setObject:nonce forKey:@"nonce"];
-    [targetParam setObject:timeString forKey:@"curTime"];
-    [targetParam setObject:checkSum forKey:@"checksum"];
-    
-    [[NMCMessageDispatcher sharedDispatcher] nativeCallWebWithWebView:_webView action:NMCMethodActionSendAuth param:targetParam];
+- (void)callWebSendAuthWithAppKey:(NSString*)appKey channelName:(NSString*)channelName userId:(NSUInteger)userId {
+    NMCWhiteBoardRequester* requester = [[NMCWhiteBoardRequester alloc] init];
+    [requester requestAuthInfoWithAppKey:appKey roomId:channelName userId:userId completion:^(NSError *error, NMCWhiteBoardAuthInfo *info) {
+        NSMutableDictionary* params = [NSMutableDictionary dictionary];
+        
+        [params setObject:@(info.code) forKey:@"code"];
+        if (info.code == 200) {
+            [params setObject:info.nonce forKey:@"nonce"];
+            [params setObject:info.curTime forKey:@"curTime"];
+            [params setObject:info.checksum forKey:@"checksum"];
+        }
+        
+        [[NMCMessageDispatcher sharedDispatcher] nativeCallWebWithWebView:self.webView action:NMCMethodActionSendAuth param:params];
+    }];
+}
+
+- (void)callWebSendAntiLeechInfoWithAppKey:(NSString *)appKey
+                                bucketName:(NSString *)bucketName
+                                 objectKey:(NSString *)objectKey
+                                       url:(NSString*)url
+                                     seqId:(NSInteger)seqId
+                                 timeStamp:(NSString *)timeStamp {
+    NMCWhiteBoardRequester* requester = [[NMCWhiteBoardRequester alloc] init];
+    [requester requestAntiLeechInfoWithAppKey:appKey bucketName:bucketName objectKey:objectKey timeStamp:timeStamp completion:^(NSError *error, NMCWhiteBoardAntiLeechInfo *info) {
+        NSMutableDictionary* params = [NSMutableDictionary dictionary];
+        
+        [params setObject:@(info.code) forKey:@"code"];
+        if (info.code == 200) {
+            [params setObject:@(seqId) forKey:@"seqId"];
+            NSString* targetUrl = [NSString stringWithFormat:@"%@?wsSecret=%@&wsTime=%@", url, info.secret, timeStamp];
+            [params setObject:targetUrl forKey:@"url"];
+        }
+        
+        [[NMCMessageDispatcher sharedDispatcher] nativeCallWebWithWebView:self.webView action:NMCMethodActionSendAntiLeechInfo param:params];
+    }];
 }
 
 #pragma mark - Private
