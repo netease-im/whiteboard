@@ -8,7 +8,7 @@
 #import "NMCWhiteBoardRequester.h"
 #import "NSDictionary+NERtc.h"
 #import "NSDictionary+NERtcJson.h"
-#import "WhiteBoardConfig.h"
+#import "NMCWhiteBoardConfig.h"
 
 
 @implementation NMCWhiteBoardAuthInfo

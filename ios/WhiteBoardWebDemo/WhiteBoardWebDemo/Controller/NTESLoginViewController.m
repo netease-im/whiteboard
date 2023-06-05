@@ -8,7 +8,7 @@
 #import "NTESLoginViewController.h"
 #import "NTESWhiteBoardViewController.h"
 #import "NTESContentView.h"
-#import "WhiteBoardConfig.h"
+#import "NMCWhiteBoardConfig.h"
 #import "UIImage+NTES.h"
 
 #import <Masonry/Masonry.h>

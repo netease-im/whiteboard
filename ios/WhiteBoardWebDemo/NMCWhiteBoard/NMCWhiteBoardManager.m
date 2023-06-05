@@ -10,6 +10,7 @@
 #import "NMCWebView.h"
 #import "NMCMessageDispatcher.h"
 #import "NMCWhiteBoardRequester.h"
+#import "NMCWhiteBoardConfig.h"
 
 #import <CommonCrypto/CommonCrypto.h>
 
@@ -77,7 +78,12 @@
     [loginParam setObject:@(param.debug) forKey:@"debug"];
     [loginParam setObject:@"ios" forKey:@"platform"];
     [loginParam setObject:@{} forKey:@"toolbar"];
-    NSDictionary* appConfig = @{@"nosAntiLeech" : @YES};
+    
+    NSMutableDictionary* appConfig = [NSMutableDictionary dictionary];
+    [appConfig setObject:@YES forKey:@"nosAntiLeech"];
+    if (![kPresetId isEqualToString:@"<#请填写转码模板id#>"]) {
+        [appConfig setObject:@(kPresetId.integerValue) forKey:@"presetId"];
+    }
     NSDictionary* drawPluginPrams = @{@"appConfig" : appConfig};
     [loginParam setObject:drawPluginPrams forKey:@"drawPluginParams"];
     

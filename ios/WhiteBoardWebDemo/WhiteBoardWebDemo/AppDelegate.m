@@ -7,7 +7,7 @@
 
 #import "AppDelegate.h"
 #import "NTESLoginViewController.h"
-#import "WhiteBoardConfig.h"
+#import "NMCWhiteBoardConfig.h"
 
 @interface AppDelegate ()
 

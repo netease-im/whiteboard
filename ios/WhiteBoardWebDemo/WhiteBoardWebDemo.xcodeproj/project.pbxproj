@@ -71,7 +71,7 @@
 		6AA07B022A2DF4430078B151 /* NSDictionary+NERtc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NERtc.h"; sourceTree = "<group>"; };
 		6AA07B032A2DF4430078B151 /* NSDictionary+NERtc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NERtc.m"; sourceTree = "<group>"; };
 		6AA07B042A2DF4430078B151 /* NSDictionary+NERtcJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NERtcJson.m"; sourceTree = "<group>"; };
-		6AA07B072A2DF75C0078B151 /* WhiteBoardConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhiteBoardConfig.h; sourceTree = "<group>"; };
+		6AA07B072A2DF75C0078B151 /* NMCWhiteBoardConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NMCWhiteBoardConfig.h; sourceTree = "<group>"; };
 		9153BC82B0F190DD71BC4272 /* libPods-WhiteBoardWebDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WhiteBoardWebDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -130,7 +130,6 @@
 				40CE89B526953FBA00C76A32 /* Model */,
 				40CE89B726953FBA00C76A32 /* View */,
 				40CE89B82695437100C76A32 /* Category */,
-				6AA07B072A2DF75C0078B151 /* WhiteBoardConfig.h */,
 				40CE899126949C5E00C76A32 /* AppDelegate.h */,
 				40CE899226949C5E00C76A32 /* AppDelegate.m */,
 				40CE899A26949C5E00C76A32 /* Main.storyboard */,
@@ -203,6 +202,7 @@
 				40CE89BF26954D9000C76A32 /* NMCWebView.m */,
 				6AA07AFF2A2DE3600078B151 /* NMCWhiteBoardRequester.h */,
 				6AA07AFE2A2DE3600078B151 /* NMCWhiteBoardRequester.m */,
+				6AA07B072A2DF75C0078B151 /* NMCWhiteBoardConfig.h */,
 			);
 			path = NMCWhiteBoard;
 			sourceTree = "<group>";
