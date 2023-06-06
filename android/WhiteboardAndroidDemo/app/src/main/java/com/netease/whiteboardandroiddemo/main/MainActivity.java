@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(MainActivity.this, WhiteboardActivity.class);
         intent.putExtra(Constant.KEY_APP_KEY, Constant.APP_KEY);
-        intent.putExtra(Constant.KEY_APP_SECRET, Constant.APP_SECRET);
         intent.putExtra(Constant.KEY_UID, userId + "");
         intent.putExtra(Constant.KEY_ROOM_ID, roomId);
         intent.putExtra(Constant.KEY_WEBVIEW_URL, Constant.WEBVIEW_URL);

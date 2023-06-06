@@ -10,11 +10,6 @@ public interface WhiteboardContractView {
     String getAppKey();
 
     /**
-     * 获取AppSecret
-     */
-    String getAppSecret();
-
-    /**
      * 获取通道，即房间号
      */
     String getChannel();

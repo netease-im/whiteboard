@@ -45,7 +45,6 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
     private static final String TAG = "WhiteboardActivity";
     private WebView whiteboardWv;
     private String appKey;
-    private String appSecret;
     private String roomId;
     private String uid;
     private String webViewUrl;
@@ -80,7 +79,6 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
     private void parseIntent() {
         Intent intent = getIntent();
         appKey = intent.getStringExtra(Constant.KEY_APP_KEY);
-        appSecret = intent.getStringExtra(Constant.KEY_APP_SECRET);
         uid = intent.getStringExtra(Constant.KEY_UID);
         roomId = intent.getStringExtra(Constant.KEY_ROOM_ID);
         webViewUrl = intent.getStringExtra(Constant.KEY_WEBVIEW_URL);
@@ -234,11 +232,6 @@ public class WhiteboardActivity extends AppCompatActivity implements WhiteboardC
     @Override
     public String getAppKey() {
         return appKey;
-    }
-
-    @Override
-    public String getAppSecret() {
-        return appSecret;
     }
 
     @Override

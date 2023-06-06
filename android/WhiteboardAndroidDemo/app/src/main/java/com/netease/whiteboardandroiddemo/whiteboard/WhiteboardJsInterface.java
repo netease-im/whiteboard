@@ -11,22 +11,32 @@ import android.webkit.WebView;
 
 import androidx.annotation.Nullable;
 
+import com.google.gson.Gson;
 import com.netease.whiteboardandroiddemo.Constant;
+import com.netease.whiteboardandroiddemo.http.AntiLeechInfoParams;
+import com.netease.whiteboardandroiddemo.http.ChecksumResult;
+import com.netease.whiteboardandroiddemo.http.WsSecretResult;
 import com.netease.whiteboardandroiddemo.utils.NELogger;
 
-import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
-import java.util.Random;
 import java.util.UUID;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class WhiteboardJsInterface {
     private static final String TAG = "WhiteboardJsInterface";
@@ -44,7 +54,7 @@ public class WhiteboardJsInterface {
         try {
             JSONObject obj = new JSONObject(toast);
             String action = obj.getString("action");
-            JSONObject param = obj.getJSONObject("param");
+            String param = obj.getString("param");
 
             NELogger.i(TAG, String.format("called by js, toast=%s, obj=%s, param=%s", toast, obj, param));
             switch (action) {
@@ -67,6 +77,9 @@ public class WhiteboardJsInterface {
                     break;
                 case "webGetAuth":
                     sendAuthInfo();
+                    break;
+                case "webGetAntiLeechInfo":
+                    sendAntiLeechInfo(param);
                     break;
                 // Js运行时报错
                 case "webJsError":
@@ -97,7 +110,7 @@ public class WhiteboardJsInterface {
 
         JSONObject jsParam = new JSONObject();
         JSONObject param = new JSONObject();
-        JSONObject testParams = new JSONObject();
+        JSONObject drawPluginParams = new JSONObject();
 
         jsParam.put("action", "jsJoinWB");
         jsParam.put("param", param);
@@ -108,8 +121,12 @@ public class WhiteboardJsInterface {
         param.put("platform", "android");
         param.put("appKey", contract.getAppKey());
 
-        testParams.put("isDemo", true);
-        param.put("testParams", testParams);
+        JSONObject appConfig = new JSONObject();
+        appConfig.put("nosAntiLeech", true);
+        appConfig.put("presetId", Constant.PRESET_ID);
+        drawPluginParams.put("appConfig", appConfig);
+
+        param.put("drawPluginParams", drawPluginParams);
 
         runJs((jsParam.toString()));
     }
@@ -168,19 +185,152 @@ public class WhiteboardJsInterface {
             return;
         }
 
+        MediaType mediaType = MediaType.parse("application/json;charset=utf8");
+        JSONObject body = new JSONObject();
+        body.put("wbAppKey", contract.getAppKey());
+        body.put("roomId", contract.getChannel());
+        body.put("uid", contract.getUid());
+
+        Request request = new Request.Builder()
+                .url(Constant.CHECKSUM_URL)
+                .post(RequestBody.create(mediaType, body.toString()))
+                .build();
+
+        OkHttpClient client = new OkHttpClient();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                NELogger.e(TAG, "getCheckSum failed " + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String body = response.body().string();
+                if (TextUtils.isEmpty(body) || response.code() != 200) {
+                    NELogger.e(TAG, "getCheckSum failed: response not OK");
+                    onGetCheckSumFailure(response.code());
+                    return;
+                }
+
+                ChecksumResult result = new Gson().fromJson(body, ChecksumResult.class);
+                if (result.getCode() != 200) {
+                    NELogger.e(TAG, "getCheckSum failed: result code is " + result.getCode());
+                    onGetCheckSumFailure(result.getCode());
+                    return;
+                }
+
+                JSONObject jsParam = new JSONObject();
+                JSONObject param = new JSONObject();
+                try {
+                    jsParam.put("action", "jsSendAuth");
+                    jsParam.put("param", param);
+                    param.put("code", result.getCode());
+                    param.put("nonce", result.getData().getWbNonce());
+                    param.put("curTime", result.getData().getWbCurtime());
+                    param.put("checksum", result.getData().getWbCheckSum());
+                    runJs((jsParam.toString()));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void onGetCheckSumFailure(int code) {
         JSONObject jsParam = new JSONObject();
         JSONObject param = new JSONObject();
-        long timestamp = System.currentTimeMillis() / 1000;
-        String nonce = "8788";
-        //String sha1Hex = DigestUtils.sha1Hex(contract.getAppSecret() + nonce + Long.toString(timestamp));
-        String sha1Hex = new String(Hex.encodeHex(DigestUtils.sha1(contract.getAppSecret() + nonce + Long.toString(timestamp))));
-        jsParam.put("action", "jsSendAuth");
-        jsParam.put("param", param);
-        param.put("code", 200);
-        param.put("nonce", nonce);
-        param.put("curTime", timestamp);
-        param.put("checksum", sha1Hex);
-        runJs((jsParam.toString()));
+        try {
+            jsParam.put("action", "jsSendAuth");
+            jsParam.put("param", param);
+            param.put("code", code);
+            runJs((jsParam.toString()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendAntiLeechInfo(String args) throws JSONException, UnsupportedEncodingException {
+        WhiteboardContractView contract = contractReference.get();
+        if (contract == null) {
+            return;
+        }
+
+        String curTime = System.currentTimeMillis() / 1000 + "";
+        AntiLeechInfoParams antiLeechInfoParams = new Gson().fromJson(args, AntiLeechInfoParams.class);
+
+        MediaType mediaType = MediaType.parse("application/json;charset=utf8");
+        JSONObject body = new JSONObject();
+        body.put("wbAppKey", contract.getAppKey());
+        body.put("bucketName", antiLeechInfoParams.getProp().getBucket());
+        body.put("objectKey", antiLeechInfoParams.getProp().getObject());
+        body.put("wsTime", curTime);
+
+        Request request = new Request.Builder()
+                .url(Constant.WS_SECRET_URL)
+                .post(RequestBody.create(mediaType, body.toString()))
+                .build();
+
+        OkHttpClient client = new OkHttpClient();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                NELogger.e(TAG, "getWsSecret failed " + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String body = response.body().string();
+                if (TextUtils.isEmpty(body) || response.code() != 200) {
+                    NELogger.e(TAG, "getWsSecret failed response is not OK");
+                    onGetWsSecretFailure(response.code(), body);
+                    return;
+                }
+
+                WsSecretResult result = new Gson().fromJson(body, WsSecretResult.class);
+                if (result.getCode() != 200) {
+                    NELogger.e(TAG, "getWsSecret failed: result code is " + result.getCode());
+                    onGetWsSecretFailure(result.getCode(), body);
+                    return;
+                }
+
+                JSONObject jsParam = new JSONObject();
+                JSONObject param = new JSONObject();
+
+                try {
+                    jsParam.put("action", "jsSendAntiLeechInfo");
+                    jsParam.put("param", param);
+                    param.put("code", result.getCode());
+                    param.put("seqId", antiLeechInfoParams.getSeqId());
+
+                    Uri uri = Uri.parse(antiLeechInfoParams.getUrl())
+                            .buildUpon()
+                            .appendQueryParameter("wsSecret", result.getData().getWsSecret())
+                            .appendQueryParameter("wsTime", curTime)
+                            .build();
+
+                    param.put("url", uri.toString());
+                    param.put("curTime", curTime);
+                    runJs((jsParam.toString()));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void onGetWsSecretFailure(int code, String msg) {
+        JSONObject jsParam = new JSONObject();
+        JSONObject param = new JSONObject();
+        try {
+            jsParam.put("action", "jsSendAntiLeechInfo");
+            jsParam.put("param", param);
+            param.put("code", code);
+            param.put("message", msg);
+
+            runJs((jsParam.toString()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void runJs(final String param) {
