@@ -235,8 +235,8 @@
 
 // 发送请求之前决定是否跳转
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    NSString *requestString = navigationAction.request.URL.absoluteString;
-    NSLog(@"[WKNavigationDelegate] decidePolicyForNavigationAction requestString = %@", requestString);
+//    NSString *requestString = navigationAction.request.URL.absoluteString;
+//    NSLog(@"[WKNavigationDelegate] decidePolicyForNavigationAction requestString = %@", requestString);
     
     if ([_wkDelegate respondsToSelector:@selector(onDecidePolicyForNavigationAction:decisionHandler:)]) {
         [_wkDelegate onDecidePolicyForNavigationAction:navigationAction decisionHandler:decisionHandler];

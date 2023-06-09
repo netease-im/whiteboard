@@ -270,21 +270,37 @@ alpha:alphaValue]
 
 - (BOOL)needSaveImage:(WKNavigationAction *)navigationAction {
     NSString *requestString = navigationAction.request.URL.absoluteString;
-    if ((navigationAction.navigationType == WKNavigationTypeLinkActivated) && [requestString rangeOfString:@"data:image/png;base64,"].location != NSNotFound) {
-        NSString *dataString = [requestString stringByReplacingOccurrencesOfString:@"data:image/png;base64," withString:@""];
+    NSRange pngKeywordRange = [requestString rangeOfString:@"data:image/png;base64,"];
+    NSRange jpegKeywordRange = [requestString rangeOfString:@"data:image/jpeg;base64,"];
+    BOOL isValidImageString = (pngKeywordRange.location != NSNotFound) || (jpegKeywordRange.location != NSNotFound);
+    if ((navigationAction.navigationType == WKNavigationTypeLinkActivated) && isValidImageString) {
+        NSString *dataString = nil;
+        if (pngKeywordRange.location != NSNotFound) {
+            dataString = [requestString stringByReplacingCharactersInRange:pngKeywordRange withString:@""];
+        } else {
+            dataString = [requestString stringByReplacingCharactersInRange:jpegKeywordRange withString:@""];
+        }
+        
         NSData *imageData = [[NSData alloc] initWithBase64EncodedString:dataString options:NSDataBase64DecodingIgnoreUnknownCharacters];
         UIImage *image = [UIImage imageWithData:imageData];
         PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
         if (status == PHAuthorizationStatusNotDetermined) {
             [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-                
+                if (status == PHAuthorizationStatusAuthorized) {
+                    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void*)self);
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.view makeToast:@"请开启相册权限" duration:2.0 position:CSToastPositionCenter];
+                    });
+                }
             }];
+            
+            return YES;
         }
-        if (status == PHAuthorizationStatusRestricted ||
-            status == PHAuthorizationStatusDenied) {
-            [self.view makeToast:@"请开启相册权限" duration:2.0 position:CSToastPositionCenter];
-        } else {
+        if (status == PHAuthorizationStatusAuthorized) {
             UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void*)self);
+        } else {
+            [self.view makeToast:@"请开启相册访问权限" duration:2.0 position:CSToastPositionCenter];
         }
         
         return YES;
