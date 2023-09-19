@@ -6,9 +6,9 @@ public class Constant {
      * samplecode仅作为展示使用。实际开发时，请不要将appsecret放置在客户端代码中，以防泄漏。
      * 客户端中放置appsecret是为了在客户不需要设置应用服务器时，即能够跑通白板的sample code。
      */
-    public static final String WEBVIEW_URL = "https://app.yunxin.163.com/webdemo/whiteboard/webview.html";
-    public static final String CHECKSUM_URL = "https://yiyong.netease.im/wb/getCheckSum";
-    public static final String WS_SECRET_URL = "https://yiyong.netease.im/getWsSecret";
+    public static final String WEBVIEW_URL = "应用 WebView URL 地址";
+    public static final String CHECKSUM_URL = "应用服务器获取 checksum 鉴权的URL路径https://yiyong.netease.im/wb/getCheckSum";
+    public static final String WS_SECRET_URL = "应用服务器获取 防盗链 wsSecret 鉴权的URL路径https://yiyong.netease.im/getWsSecret";
 
     public static final String KEY_APP_KEY = "app_key";
     public static final String KEY_UID = "uid";
